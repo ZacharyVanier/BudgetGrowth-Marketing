@@ -52,297 +52,96 @@
             gap: 1.5rem;
             transition: opacity 0.6s ease, visibility 0.6s ease;
         }
-
-        .preloader.done {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-
-        .preloader-logo {
-            width: 80px;
-            height: 80px;
-            animation: preloader-pulse 1.2s ease-in-out infinite;
-        }
-
-        .preloader-logo img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
-
-        .preloader-bar {
-            width: 120px;
-            height: 3px;
-            background: var(--border);
-            border-radius: 3px;
-            overflow: hidden;
-        }
-
-        .preloader-bar-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-            border-radius: 3px;
-            animation: preloader-fill 1.5s ease-out forwards;
-        }
-
-        @keyframes preloader-pulse {
-            0%, 100% { transform: scale(1); opacity: 0.8; }
-            50% { transform: scale(1.08); opacity: 1; }
-        }
-
-        @keyframes preloader-fill {
-            0% { width: 0; }
-            100% { width: 100%; }
-        }
+        .preloader.done { opacity: 0; visibility: hidden; pointer-events: none; }
+        .preloader-logo { width: 80px; height: 80px; animation: preloader-pulse 1.2s ease-in-out infinite; }
+        .preloader-logo img { width: 100%; height: 100%; object-fit: contain; }
+        .preloader-bar { width: 120px; height: 3px; background: var(--border); border-radius: 3px; overflow: hidden; }
+        .preloader-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); border-radius: 3px; animation: preloader-fill 1.5s ease-out forwards; }
+        @keyframes preloader-pulse { 0%, 100% { transform: scale(1); opacity: 0.8; } 50% { transform: scale(1.08); opacity: 1; } }
+        @keyframes preloader-fill { 0% { width: 0; } 100% { width: 100%; } }
 
         /* ========== SCROLL PROGRESS ========== */
-        .scroll-progress {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
-            z-index: 10000;
-            width: 0%;
-            transition: width 0.1s linear;
-            box-shadow: 0 0 10px var(--accent-glow-strong);
-        }
+        .scroll-progress { position: fixed; top: 0; left: 0; height: 3px; background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end)); z-index: 10000; width: 0%; transition: width 0.1s linear; box-shadow: 0 0 10px var(--accent-glow-strong); }
 
         /* ========== CURSOR GLOW ========== */
-        .cursor-glow {
-            position: fixed;
-            width: 300px;
-            height: 300px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(0, 200, 83, 0.06) 0%, transparent 70%);
-            pointer-events: none;
-            z-index: 1;
-            transform: translate(-50%, -50%);
-            transition: opacity 0.3s ease;
-            opacity: 0;
-        }
-
+        .cursor-glow { position: fixed; width: 300px; height: 300px; border-radius: 50%; background: radial-gradient(circle, rgba(0, 200, 83, 0.06) 0%, transparent 70%); pointer-events: none; z-index: 1; transform: translate(-50%, -50%); transition: opacity 0.3s ease; opacity: 0; }
         body:hover .cursor-glow { opacity: 1; }
 
+        /* ========== FILM GRAIN ========== */
+        .grain-overlay { position: fixed; inset: 0; z-index: 9998; pointer-events: none; opacity: 0.035; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E"); background-repeat: repeat; animation: grain-drift 0.5s steps(1) infinite; }
+        @keyframes grain-drift { 0% { transform: translate(0, 0); } 25% { transform: translate(-2px, 2px); } 50% { transform: translate(2px, -1px); } 75% { transform: translate(-1px, -2px); } 100% { transform: translate(1px, 1px); } }
+
+        /* ========== CURSOR PARTICLE TRAIL ========== */
+        .cursor-particle { position: fixed; border-radius: 50%; background: var(--accent); pointer-events: none; z-index: 9997; }
+
         /* ========== FLOATING ORBS ========== */
-        .floating-orbs {
-            position: fixed;
-            inset: 0;
-            pointer-events: none;
-            z-index: 0;
-            overflow: hidden;
-        }
-
-        .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            opacity: 0.07;
-            animation: float-orb 20s ease-in-out infinite;
-        }
-
-        .orb-1 {
-            width: 400px;
-            height: 400px;
-            background: var(--accent);
-            top: 10%;
-            left: -5%;
-            animation-delay: 0s;
-        }
-
-        .orb-2 {
-            width: 300px;
-            height: 300px;
-            background: #00e676;
-            top: 60%;
-            right: -5%;
-            animation-delay: -7s;
-            animation-duration: 25s;
-        }
-
-        .orb-3 {
-            width: 250px;
-            height: 250px;
-            background: #69f0ae;
-            bottom: 10%;
-            left: 30%;
-            animation-delay: -14s;
-            animation-duration: 22s;
-        }
-
-        @keyframes float-orb {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(60px, -40px) scale(1.1); }
-            50% { transform: translate(-30px, 60px) scale(0.9); }
-            75% { transform: translate(40px, 30px) scale(1.05); }
-        }
+        .floating-orbs { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.07; animation: float-orb 20s ease-in-out infinite; }
+        .orb-1 { width: 400px; height: 400px; background: var(--accent); top: 10%; left: -5%; }
+        .orb-2 { width: 300px; height: 300px; background: #00e676; top: 60%; right: -5%; animation-delay: -7s; animation-duration: 25s; }
+        .orb-3 { width: 250px; height: 250px; background: #69f0ae; bottom: 10%; left: 30%; animation-delay: -14s; animation-duration: 22s; }
+        @keyframes float-orb { 0%, 100% { transform: translate(0, 0) scale(1); } 25% { transform: translate(60px, -40px) scale(1.1); } 50% { transform: translate(-30px, 60px) scale(0.9); } 75% { transform: translate(40px, 30px) scale(1.05); } }
 
         /* ========== NAVBAR ========== */
-        nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            padding: 1.25rem 2rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .nav-logo {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            text-decoration: none;
-            color: var(--text-primary);
-            transition: transform 0.3s ease;
-        }
-
+        nav { position: fixed; top: 0; left: 0; width: 100%; z-index: 1000; padding: 1.25rem 2rem; display: flex; align-items: center; justify-content: space-between; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        nav.nav-hidden { transform: translateY(-100%); }
+        .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: var(--text-primary); transition: transform 0.3s ease; }
         .nav-logo:hover { transform: scale(1.03); }
-
-        .nav-logo-icon {
-            width: 36px;
-            height: 36px;
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
+        .nav-logo-icon { width: 36px; height: 36px; border-radius: 8px; overflow: hidden; }
         .nav-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
-
-        .nav-logo-text {
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: -0.02em;
-        }
-
+        .nav-logo-text { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
         .nav-logo-text span { color: var(--accent); }
-
-        .nav-links {
-            display: flex;
-            align-items: center;
-            gap: 2.5rem;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--accent);
-            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
+        .nav-links { display: flex; align-items: center; gap: 2.5rem; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: all 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--accent); transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .nav-links a:hover { color: var(--text-primary); }
         .nav-links a:hover::after { width: 100%; }
-
         .nav-links a.active { color: var(--text-primary); }
         .nav-links a.active::after { width: 100%; }
-
-        .nav-cta {
-            display: inline-block;
-            padding: 0.55rem 1.4rem;
-            background: var(--accent);
-            color: #000 !important;
-            border-radius: 8px;
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: background 0.3s cubic-bezier(0.16, 1, 0.3, 1), transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-            -webkit-mask-image: radial-gradient(white, black);
-            isolation: isolate;
-        }
-
-        .nav-cta::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-            transform: translateX(-100%);
-            transition: transform 0.5s ease;
-        }
-
+        .nav-cta { display: inline-block; padding: 0.55rem 1.4rem; background: var(--accent); color: #000 !important; border-radius: 8px; font-weight: 600; font-size: 0.85rem; transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease; position: relative; overflow: hidden; -webkit-mask-image: radial-gradient(white, black); isolation: isolate; }
+        .nav-cta::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent); transform: translateX(-100%); transition: transform 0.5s ease; }
         .nav-cta:hover::before { transform: translateX(100%); }
-
-        .nav-cta:hover {
-            background: var(--gradient-end);
-            transform: translateY(-2px);
-            box-shadow: 0 4px 20px var(--accent-glow-strong);
-        }
-
+        .nav-cta:hover { background: var(--gradient-end); transform: translateY(-2px); box-shadow: 0 4px 20px var(--accent-glow-strong); }
         .nav-cta::after { display: none !important; }
-
-        .mobile-toggle {
-            display: none;
-            flex-direction: column;
-            gap: 5px;
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        .mobile-toggle span {
-            width: 24px;
-            height: 2px;
-            background: var(--text-primary);
-            transition: all 0.3s ease;
-        }
+        .mobile-toggle { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+        .mobile-toggle span { width: 24px; height: 2px; background: var(--text-primary); transition: all 0.3s ease; }
 
         /* ========== PAGE HEADER ========== */
         .page-header {
-            padding: 8rem 2rem 4rem;
+            padding: 8rem 2rem 3rem;
             text-align: center;
             border-bottom: 1px solid rgba(0, 200, 83, 0.06);
             background: #060b07;
             position: relative;
             z-index: 2;
             overflow: hidden;
+            min-height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .page-header-inner {
-            animation: header-float 6s ease-in-out infinite;
-        }
-
-        @keyframes header-float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
-        }
-
-        .page-header::before {
-            content: '';
+        .header-canvas {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, var(--accent-glow) 0%, transparent 70%);
-            pointer-events: none;
-            opacity: 0.4;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .header-overlay {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(6,11,7,0.3) 0%, rgba(6,11,7,0.9) 100%);
+            z-index: 1;
         }
 
         .page-header-inner {
             max-width: 700px;
             margin: 0 auto;
             position: relative;
+            z-index: 2;
         }
 
         .section-label {
@@ -356,15 +155,7 @@
             letter-spacing: 0.12em;
             margin-bottom: 1rem;
         }
-
-        .section-label::before {
-            content: '';
-            width: 0;
-            height: 1px;
-            background: var(--accent);
-            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
+        .section-label::before { content: ''; width: 0; height: 1px; background: var(--accent); transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .section-label.visible::before { width: 20px; }
 
         .page-title {
@@ -375,6 +166,18 @@
             line-height: 1.1;
         }
 
+        .page-title .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(40px) rotateX(-40deg);
+            animation: char-reveal 0.6s forwards;
+            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes char-reveal {
+            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+        }
+
         .page-title .gradient-text {
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #69f0ae);
             -webkit-background-clip: text;
@@ -382,18 +185,39 @@
             background-clip: text;
             background-size: 200% 200%;
             animation: gradient-shift 4s ease-in-out infinite;
+            position: relative;
         }
 
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
+        .page-title .gradient-text.glitching::before,
+        .page-title .gradient-text.glitching::after {
+            content: 'Games';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #69f0ae);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
+        .page-title .gradient-text.glitching::before { animation: glitch-1 0.15s linear; clip-path: inset(20% 0 40% 0); }
+        .page-title .gradient-text.glitching::after { animation: glitch-2 0.15s linear; clip-path: inset(60% 0 10% 0); }
+
+        @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        @keyframes glitch-1 { 0% { transform: translate(0); } 20% { transform: translate(-3px, 2px); } 40% { transform: translate(3px, -2px); } 60% { transform: translate(-2px, -1px); } 80% { transform: translate(2px, 1px); } 100% { transform: translate(0); } }
+        @keyframes glitch-2 { 0% { transform: translate(0); } 20% { transform: translate(3px, -2px); } 40% { transform: translate(-3px, 2px); } 60% { transform: translate(2px, 1px); } 80% { transform: translate(-2px, -1px); } 100% { transform: translate(0); } }
 
         .page-desc {
             color: var(--text-secondary);
             font-size: 1.1rem;
             line-height: 1.7;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: hero-fade-in 0.8s 1.8s forwards;
         }
+
+        @keyframes hero-fade-in { to { opacity: 1; transform: translateY(0); } }
 
         .game-count {
             display: inline-flex;
@@ -406,18 +230,89 @@
             font-size: 0.85rem;
             color: var(--text-secondary);
             background: rgba(255,255,255,0.03);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: hero-fade-in 0.8s 2.1s forwards;
+        }
+        .game-count strong { color: var(--accent); }
+
+        /* ========== FILTER TABS ========== */
+        .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: hero-fade-in 0.8s 2.4s forwards;
         }
 
-        .game-count strong { color: var(--accent); }
+        .filter-tab {
+            padding: 0.5rem 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            background: transparent;
+            color: var(--text-secondary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .filter-tab::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: var(--accent);
+            border-radius: 50px;
+            transform: scaleX(0);
+            transform-origin: center;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: -1;
+        }
+
+        .filter-tab:hover {
+            border-color: var(--accent);
+            color: var(--text-primary);
+        }
+
+        .filter-tab.active {
+            border-color: var(--accent);
+            color: #000;
+            font-weight: 600;
+        }
+
+        .filter-tab.active::before {
+            transform: scaleX(1);
+        }
+
+        .filter-count {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 20px;
+            height: 20px;
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            font-size: 0.7rem;
+            margin-left: 0.35rem;
+            padding: 0 0.35rem;
+        }
+
+        .filter-tab.active .filter-count {
+            background: rgba(0,0,0,0.2);
+        }
 
         /* ========== GAMES GRID ========== */
         .games-section {
-            padding: 4rem 2rem 7rem;
+            padding: 3rem 2rem 7rem;
             max-width: 1200px;
             margin: 0 auto;
             position: relative;
             z-index: 2;
-            background-image: radial-gradient(ellipse at 50% 30%, rgba(0, 200, 83, 0.02) 0%, transparent 60%);
         }
 
         .games-grid {
@@ -431,12 +326,27 @@
             border-radius: 16px;
             overflow: hidden;
             background: var(--bg-card);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
             color: inherit;
             display: block;
             position: relative;
             transform-style: preserve-3d;
+            opacity: 0;
+            transform: translateY(60px) scale(0.9);
+        }
+
+        .game-card.card-visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        .game-card.card-hidden {
+            opacity: 0;
+            transform: translateY(30px) scale(0.9);
+            pointer-events: none;
+            position: absolute;
+            visibility: hidden;
         }
 
         .game-card::after {
@@ -456,10 +366,7 @@
             pointer-events: none;
         }
 
-        @keyframes border-shimmer {
-            0% { background-position: 0% 0%; }
-            100% { background-position: 100% 100%; }
-        }
+        @keyframes border-shimmer { 0% { background-position: 0% 0%; } 100% { background-position: 100% 100%; } }
 
         .game-card:hover {
             border-color: transparent;
@@ -468,6 +375,36 @@
         }
 
         .game-card:hover::after { opacity: 1; }
+
+        /* ========== CARD SPOTLIGHT ========== */
+        .card-spotlight {
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 3;
+        }
+        .game-card:hover .card-spotlight { opacity: 1; }
+
+        /* ========== CARD HOVER RIPPLE ========== */
+        .card-ripple {
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(0, 200, 83, 0.15);
+            transform: scale(0);
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .card-ripple.animating {
+            animation: ripple-expand 0.6s ease-out forwards;
+        }
+
+        @keyframes ripple-expand {
+            to { transform: scale(4); opacity: 0; }
+        }
 
         .game-card-img {
             width: 100%;
@@ -481,26 +418,38 @@
             height: 100%;
             object-fit: cover;
             transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: ken-burns 20s ease-in-out infinite alternate;
         }
 
-        .game-card:hover .game-card-img img { transform: scale(1.1); }
+        @keyframes ken-burns {
+            0% { transform: scale(1) translate(0, 0); }
+            100% { transform: scale(1.08) translate(-1%, -1%); }
+        }
+
+        .game-card:hover .game-card-img img {
+            transform: scale(1.15);
+            animation: none;
+        }
 
         .game-card-img::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.7) 100%);
+            background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.8) 100%);
             z-index: 1;
         }
 
-        .game-card-info { padding: 1.25rem 1.5rem 1.5rem; }
+        .game-card-info { padding: 1.25rem 1.5rem 1.5rem; position: relative; z-index: 1; }
 
         .game-card-info h3 {
             font-size: 1.15rem;
             font-weight: 700;
             margin-bottom: 0.3rem;
             letter-spacing: -0.01em;
+            transition: color 0.3s ease;
         }
+
+        .game-card:hover .game-card-info h3 { color: var(--accent); }
 
         .game-card-info p {
             color: var(--text-muted);
@@ -508,44 +457,18 @@
             margin-bottom: 0.5rem;
         }
 
-        .game-stats {
-            display: flex;
-            gap: 1rem;
-            margin-top: 0.75rem;
-            flex-wrap: wrap;
-        }
-
-        .game-stat {
-            display: flex;
-            align-items: center;
-            gap: 0.35rem;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
+        .game-stats { display: flex; gap: 1rem; margin-top: 0.75rem; flex-wrap: wrap; }
+        .game-stat { display: flex; align-items: center; gap: 0.35rem; font-size: 0.8rem; color: var(--text-muted); }
         .game-stat svg { width: 14px; height: 14px; flex-shrink: 0; }
-
         .game-stat.live { color: var(--accent); }
-
-        .game-stat.live::before {
-            content: '';
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-            border-radius: 50%;
-            animation: pulse-dot 2s infinite;
-        }
-
-        @keyframes pulse-dot {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.3; }
-        }
+        .game-stat.live::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse-dot 2s infinite; }
+        @keyframes pulse-dot { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
         .badge-unreleased {
             position: absolute;
             top: 1rem;
             right: 1rem;
-            z-index: 2;
+            z-index: 4;
             padding: 0.3rem 0.75rem;
             background: rgba(0, 0, 0, 0.7);
             backdrop-filter: blur(8px);
@@ -562,7 +485,7 @@
             position: absolute;
             top: 1rem;
             right: 1rem;
-            z-index: 2;
+            z-index: 4;
             padding: 0.3rem 0.75rem;
             background: rgba(0, 200, 83, 0.15);
             backdrop-filter: blur(8px);
@@ -576,6 +499,13 @@
             display: flex;
             align-items: center;
             gap: 0.4rem;
+            box-shadow: 0 0 15px rgba(0, 200, 83, 0.2);
+            animation: badge-glow 2s ease-in-out infinite;
+        }
+
+        @keyframes badge-glow {
+            0%, 100% { box-shadow: 0 0 15px rgba(0, 200, 83, 0.2); }
+            50% { box-shadow: 0 0 25px rgba(0, 200, 83, 0.4); }
         }
 
         .badge-live::before {
@@ -588,98 +518,18 @@
         }
 
         /* ========== FOOTER ========== */
-        footer {
-            padding: 4rem 2rem 2rem;
-            border-top: 1px solid var(--border);
-            background: var(--bg-primary);
-            position: relative;
-            z-index: 2;
-        }
-
-        .footer-grid {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            gap: 3rem;
-        }
-
-        .footer-brand p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            line-height: 1.7;
-            margin-top: 1rem;
-            max-width: 300px;
-        }
-
-        .footer-col h4 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 0.08em;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-        }
-
+        footer { padding: 4rem 2rem 2rem; border-top: 1px solid var(--border); background: var(--bg-primary); position: relative; z-index: 2; }
+        .footer-grid { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 3rem; }
+        .footer-brand p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.7; margin-top: 1rem; max-width: 300px; }
+        .footer-col h4 { font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-secondary); margin-bottom: 1rem; }
         .footer-col ul { list-style: none; }
         .footer-col li { margin-bottom: 0.6rem; }
-
-        .footer-col a {
-            color: var(--text-muted);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-        }
-
-        .footer-col a:hover {
-            color: var(--accent);
-            padding-left: 4px;
-        }
-
-        .footer-bottom {
-            max-width: 1100px;
-            margin: 3rem auto 0;
-            padding-top: 1.5rem;
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            color: var(--text-muted);
-            font-size: 0.8rem;
-        }
-
+        .footer-col a { color: var(--text-muted); text-decoration: none; font-size: 0.9rem; transition: all 0.3s ease; }
+        .footer-col a:hover { color: var(--accent); padding-left: 4px; }
+        .footer-bottom { max-width: 1100px; margin: 3rem auto 0; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; color: var(--text-muted); font-size: 0.8rem; }
         .footer-bottom-links { display: flex; gap: 1.5rem; }
-
-        .footer-bottom-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
+        .footer-bottom-links a { color: var(--text-muted); text-decoration: none; transition: color 0.3s ease; }
         .footer-bottom-links a:hover { color: var(--text-secondary); }
-
-        /* ========== REVEAL ANIMATIONS ========== */
-        .reveal {
-            opacity: 0;
-            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal-up { transform: translateY(40px); }
-        .reveal-left { transform: translateX(-40px); }
-        .reveal-right { transform: translateX(40px); }
-        .reveal-scale { transform: scale(0.92); }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0) translateX(0) scale(1);
-        }
-
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-        .reveal-delay-5 { transition-delay: 0.5s; }
-        .reveal-delay-6 { transition-delay: 0.6s; }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
@@ -689,128 +539,13 @@
         }
 
         @media (max-width: 640px) {
-            .nav-links {
-                display: none;
-                position: fixed;
-                inset: 0;
-                background: rgba(0,0,0,0.97);
-                flex-direction: column;
-                align-items: center;
-                justify-content: center;
-                gap: 2rem;
-                z-index: 999;
-            }
+            .nav-links { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.97); flex-direction: column; align-items: center; justify-content: center; gap: 2rem; z-index: 999; }
             .nav-links.active { display: flex; }
             .nav-links a { font-size: 1.2rem; }
             .mobile-toggle { display: flex; }
             .games-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
-        }
-
-        /* ========== FILM GRAIN OVERLAY ========== */
-        .grain-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 9998;
-            pointer-events: none;
-            opacity: 0.035;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-            background-repeat: repeat;
-            animation: grain-drift 0.5s steps(1) infinite;
-        }
-
-        @keyframes grain-drift {
-            0% { transform: translate(0, 0); }
-            25% { transform: translate(-2px, 2px); }
-            50% { transform: translate(2px, -1px); }
-            75% { transform: translate(-1px, -2px); }
-            100% { transform: translate(1px, 1px); }
-        }
-
-        /* ========== CURSOR PARTICLE TRAIL ========== */
-        .cursor-particle {
-            position: fixed;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            background: var(--accent);
-            pointer-events: none;
-            z-index: 9997;
-            opacity: 0.8;
-            transition: none;
-        }
-
-        /* ========== NAVBAR AUTO-HIDE ========== */
-        nav.nav-hidden {
-            transform: translateY(-100%);
-            box-shadow: none;
-        }
-
-        /* ========== CARD SPOTLIGHT ========== */
-        .card-spotlight {
-            position: absolute;
-            inset: 0;
-            border-radius: 16px;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .game-card:hover .card-spotlight {
-            opacity: 1;
-        }
-
-        /* ========== ENHANCED HEADER TITLE ========== */
-        .page-title .gradient-text {
-            position: relative;
-        }
-
-        .page-title .gradient-text.glitching::before,
-        .page-title .gradient-text.glitching::after {
-            content: 'Games';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #69f0ae);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .page-title .gradient-text.glitching::before {
-            animation: glitch-1 0.15s linear;
-            clip-path: inset(20% 0 40% 0);
-        }
-
-        .page-title .gradient-text.glitching::after {
-            animation: glitch-2 0.15s linear;
-            clip-path: inset(60% 0 10% 0);
-        }
-
-        @keyframes glitch-1 {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 2px); }
-            40% { transform: translate(3px, -2px); }
-            60% { transform: translate(-2px, -1px); }
-            80% { transform: translate(2px, 1px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes glitch-2 {
-            0% { transform: translate(0); }
-            20% { transform: translate(3px, -2px); }
-            40% { transform: translate(-3px, 2px); }
-            60% { transform: translate(2px, 1px); }
-            80% { transform: translate(-2px, -1px); }
-            100% { transform: translate(0); }
-        }
-
-        /* ========== SCRAMBLE TEXT ========== */
-        .scramble-text {
-            display: inline;
+            .filter-tabs { flex-wrap: wrap; }
         }
     </style>
 </head>
@@ -857,20 +592,28 @@
 
     <!-- PAGE HEADER -->
     <section class="page-header">
+        <canvas class="header-canvas" id="headerCanvas"></canvas>
+        <div class="header-overlay"></div>
         <div class="page-header-inner">
-            <div class="section-label reveal reveal-up">Our Portfolio</div>
-            <h1 class="page-title reveal reveal-up reveal-delay-1">All <span class="gradient-text">Games</span></h1>
-            <p class="page-desc reveal reveal-up reveal-delay-2">Every Roblox experience we've marketed, scaled, and helped grow. From unreleased titles to games with hundreds of millions of visits.</p>
-            <div class="game-count reveal reveal-scale reveal-delay-3"><strong>7</strong> games in our portfolio</div>
+            <div class="section-label">Our Portfolio</div>
+            <h1 class="page-title" id="pageTitle"></h1>
+            <p class="page-desc">Every Roblox experience we've marketed, scaled, and helped grow. From unreleased titles to games with hundreds of millions of visits.</p>
+            <div class="game-count"><strong id="gameCountNum">0</strong> games in our portfolio</div>
         </div>
     </section>
 
-    <!-- ALL GAMES -->
+    <!-- FILTER + GAMES -->
     <section class="games-section">
-        <div class="games-grid">
+        <div class="filter-tabs" id="filterTabs">
+            <button class="filter-tab active" data-filter="all">All<span class="filter-count">7</span></button>
+            <button class="filter-tab" data-filter="live">Live<span class="filter-count">4</span></button>
+            <button class="filter-tab" data-filter="unreleased">Unreleased<span class="filter-count">3</span></button>
+        </div>
 
-            <!-- The Presentation Experience -->
-            <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="game-card reveal reveal-up" data-universe="3012965062">
+        <div class="games-grid" id="gamesGrid">
+
+            <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="game-card" data-universe="3012965062" data-status="live">
+                <div class="card-spotlight"></div>
                 <span class="badge-live">Live</span>
                 <div class="game-card-img"><img src="the-presentation-experience.png" alt="The Presentation Experience" loading="lazy"></div>
                 <div class="game-card-info">
@@ -880,8 +623,8 @@
                 </div>
             </a>
 
-            <!-- Anime Paradox -->
-            <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="game-card reveal reveal-up reveal-delay-1" data-universe="7652830984">
+            <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="game-card" data-universe="7652830984" data-status="live">
+                <div class="card-spotlight"></div>
                 <span class="badge-live">Live</span>
                 <div class="game-card-img"><img src="anime-paradox.png" alt="Anime Paradox" loading="lazy"></div>
                 <div class="game-card-info">
@@ -891,8 +634,8 @@
                 </div>
             </a>
 
-            <!-- Brew A Potion -->
-            <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="game-card reveal reveal-up reveal-delay-2" data-universe="8032676626">
+            <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="game-card" data-universe="8032676626" data-status="live">
+                <div class="card-spotlight"></div>
                 <span class="badge-live">Live</span>
                 <div class="game-card-img"><img src="brew-a-potion.png" alt="Brew A Potion" loading="lazy"></div>
                 <div class="game-card-info">
@@ -902,8 +645,8 @@
                 </div>
             </a>
 
-            <!-- Anime Destroyers -->
-            <a href="https://www.roblox.com/games/136063393518705/Anime-Destroyers" target="_blank" rel="noopener" class="game-card reveal reveal-up reveal-delay-3" data-universe="8736631614">
+            <a href="https://www.roblox.com/games/136063393518705/Anime-Destroyers" target="_blank" rel="noopener" class="game-card" data-universe="8736631614" data-status="live">
+                <div class="card-spotlight"></div>
                 <span class="badge-live">Live</span>
                 <div class="game-card-img"><img src="anime-destroyers.png" alt="Anime Destroyers" loading="lazy"></div>
                 <div class="game-card-info">
@@ -913,8 +656,8 @@
                 </div>
             </a>
 
-            <!-- Anime Conquest (Unreleased) -->
-            <div class="game-card reveal reveal-up reveal-delay-4">
+            <div class="game-card" data-status="unreleased">
+                <div class="card-spotlight"></div>
                 <span class="badge-unreleased">Unreleased</span>
                 <div class="game-card-img"><img src="anime-conquest.webp" alt="Anime Conquest" loading="lazy"></div>
                 <div class="game-card-info">
@@ -923,8 +666,8 @@
                 </div>
             </div>
 
-            <!-- Sumo Clash (Unreleased) -->
-            <div class="game-card reveal reveal-up reveal-delay-5">
+            <div class="game-card" data-status="unreleased">
+                <div class="card-spotlight"></div>
                 <span class="badge-unreleased">Unreleased</span>
                 <div class="game-card-img"><img src="sumo-clash.png" alt="Sumo Clash" loading="lazy"></div>
                 <div class="game-card-info">
@@ -933,8 +676,8 @@
                 </div>
             </div>
 
-            <!-- Shonen Clash (Unreleased) -->
-            <div class="game-card reveal reveal-up reveal-delay-6">
+            <div class="game-card" data-status="unreleased">
+                <div class="card-spotlight"></div>
                 <span class="badge-unreleased">Unreleased</span>
                 <div class="game-card-img"><img src="shonen-clash.png" alt="Shonen Clash" loading="lazy"></div>
                 <div class="game-card-info">
@@ -988,6 +731,8 @@
         window.addEventListener('load', function() {
             setTimeout(function() {
                 document.getElementById('preloader').classList.add('done');
+                // Trigger staggered card entrance after preloader
+                setTimeout(revealCards, 200);
             }, 1600);
         });
 
@@ -995,8 +740,7 @@
         window.addEventListener('scroll', function() {
             var winScroll = document.documentElement.scrollTop;
             var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            var scrolled = (winScroll / height) * 100;
-            document.getElementById('scrollProgress').style.width = scrolled + '%';
+            document.getElementById('scrollProgress').style.width = (winScroll / height) * 100 + '%';
         });
 
         // ========== CURSOR GLOW ==========
@@ -1007,46 +751,320 @@
         });
 
         // ========== MOBILE NAV ==========
-        function toggleNav() {
-            document.getElementById('navLinks').classList.toggle('active');
-        }
+        function toggleNav() { document.getElementById('navLinks').classList.toggle('active'); }
         document.querySelectorAll('.nav-links a').forEach(function(a) {
-            a.addEventListener('click', function() {
-                document.getElementById('navLinks').classList.remove('active');
-            });
+            a.addEventListener('click', function() { document.getElementById('navLinks').classList.remove('active'); });
         });
 
-        // ========== SCROLL REVEAL ==========
-        var revealEls = document.querySelectorAll('.reveal');
-        var revealObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
+        // ========== NAVBAR AUTO-HIDE ==========
+        var lastScrollY = 0, scrollDelta = 0, navEl = document.querySelector('nav');
+        window.addEventListener('scroll', function() {
+            var currentY = window.scrollY;
+            if (currentY > lastScrollY && currentY > 80) {
+                scrollDelta += currentY - lastScrollY;
+                if (scrollDelta > 40) { navEl.classList.add('nav-hidden'); scrollDelta = 0; }
+            } else { scrollDelta = 0; navEl.classList.remove('nav-hidden'); }
+            lastScrollY = currentY;
+        });
+
+        // ========== HEADER PARTICLE CANVAS ==========
+        var hCanvas = document.getElementById('headerCanvas');
+        var hCtx = hCanvas.getContext('2d');
+        var hParticles = [];
+        var hMouse = { x: null, y: null, radius: 120 };
+
+        function resizeHeaderCanvas() {
+            var header = document.querySelector('.page-header');
+            hCanvas.width = header.offsetWidth;
+            hCanvas.height = header.offsetHeight;
+        }
+        resizeHeaderCanvas();
+        window.addEventListener('resize', resizeHeaderCanvas);
+
+        hCanvas.addEventListener('mousemove', function(e) {
+            var rect = hCanvas.getBoundingClientRect();
+            hMouse.x = e.clientX - rect.left;
+            hMouse.y = e.clientY - rect.top;
+        });
+        hCanvas.addEventListener('mouseleave', function() { hMouse.x = null; hMouse.y = null; });
+
+        function HParticle() {
+            this.x = Math.random() * hCanvas.width;
+            this.y = Math.random() * hCanvas.height;
+            this.baseX = this.x;
+            this.baseY = this.y;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.speedY = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.5 + 0.1;
+            this.density = (Math.random() * 30) + 1;
+        }
+
+        HParticle.prototype.update = function() {
+            if (hMouse.x != null && hMouse.y != null) {
+                var dx = hMouse.x - this.x, dy = hMouse.y - this.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < hMouse.radius) {
+                    var force = (hMouse.radius - dist) / hMouse.radius;
+                    this.x -= (dx / dist) * force * this.density * 0.3;
+                    this.y -= (dy / dist) * force * this.density * 0.3;
                 }
-            });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-        revealEls.forEach(function(el) {
-            if (!el.classList.contains('reveal-up') && !el.classList.contains('reveal-left') && !el.classList.contains('reveal-right') && !el.classList.contains('reveal-scale')) {
-                el.classList.add('reveal-up');
             }
-            revealObserver.observe(el);
+            this.x += this.speedX;
+            this.y += this.speedY;
+            this.x += (this.baseX - this.x) * 0.01;
+            this.y += (this.baseY - this.y) * 0.01;
+            if (this.x < -10) { this.x = hCanvas.width + 10; this.baseX = this.x; }
+            if (this.x > hCanvas.width + 10) { this.x = -10; this.baseX = this.x; }
+            if (this.y < -10) { this.y = hCanvas.height + 10; this.baseY = this.y; }
+            if (this.y > hCanvas.height + 10) { this.y = -10; this.baseY = this.y; }
+        };
+
+        HParticle.prototype.draw = function() {
+            hCtx.beginPath();
+            hCtx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            hCtx.fillStyle = 'rgba(0, 200, 83, ' + this.opacity + ')';
+            hCtx.fill();
+        };
+
+        function initHeaderParticles() {
+            hParticles = [];
+            var count = Math.min(Math.floor((hCanvas.width * hCanvas.height) / 8000), 120);
+            for (var i = 0; i < count; i++) hParticles.push(new HParticle());
+        }
+        initHeaderParticles();
+
+        function connectHeaderParticles() {
+            for (var a = 0; a < hParticles.length; a++) {
+                for (var b = a + 1; b < hParticles.length; b++) {
+                    var dx = hParticles[a].x - hParticles[b].x;
+                    var dy = hParticles[a].y - hParticles[b].y;
+                    var dist = dx * dx + dy * dy;
+                    if (dist < 14400) {
+                        var opacity = 0.08 * (1 - Math.sqrt(dist) / 120);
+                        hCtx.beginPath();
+                        hCtx.strokeStyle = 'rgba(0, 200, 83, ' + opacity + ')';
+                        hCtx.lineWidth = 0.6;
+                        hCtx.moveTo(hParticles[a].x, hParticles[a].y);
+                        hCtx.lineTo(hParticles[b].x, hParticles[b].y);
+                        hCtx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animateHeaderParticles() {
+            hCtx.clearRect(0, 0, hCanvas.width, hCanvas.height);
+            for (var i = 0; i < hParticles.length; i++) { hParticles[i].update(); hParticles[i].draw(); }
+            connectHeaderParticles();
+            requestAnimationFrame(animateHeaderParticles);
+        }
+        animateHeaderParticles();
+
+        // ========== ANIMATED TITLE ==========
+        (function() {
+            var title = document.getElementById('pageTitle');
+            var line1 = 'All ';
+            var line2 = 'Games';
+            var html = '';
+            var delay = 1.6;
+            var step = 0.05;
+            for (var i = 0; i < line1.length; i++) {
+                var ch = line1[i] === ' ' ? '&nbsp;' : line1[i];
+                html += '<span class="char" style="animation-delay:' + (delay + i * step) + 's">' + ch + '</span>';
+            }
+            html += '<span class="gradient-text">';
+            for (var j = 0; j < line2.length; j++) {
+                html += '<span class="char" style="animation-delay:' + (delay + (line1.length + j) * step) + 's">' + line2[j] + '</span>';
+            }
+            html += '</span>';
+            title.innerHTML = html;
+        })();
+
+        // ========== GAME COUNT COUNTER ==========
+        setTimeout(function() {
+            var el = document.getElementById('gameCountNum');
+            var target = 7;
+            var current = 0;
+            var interval = setInterval(function() {
+                current++;
+                el.textContent = current;
+                if (current >= target) clearInterval(interval);
+            }, 120);
+        }, 2200);
+
+        // ========== STAGGERED CARD REVEAL ==========
+        function revealCards() {
+            var cards = document.querySelectorAll('.game-card:not(.card-hidden)');
+            cards.forEach(function(card, i) {
+                setTimeout(function() {
+                    card.classList.add('card-visible');
+                }, i * 120);
+            });
+        }
+
+        // ========== FILTER TABS ==========
+        var filterTabs = document.querySelectorAll('.filter-tab');
+        var allCards = document.querySelectorAll('.game-card');
+
+        filterTabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                var filter = this.dataset.filter;
+                filterTabs.forEach(function(t) { t.classList.remove('active'); });
+                this.classList.add('active');
+
+                // Fade all out first
+                allCards.forEach(function(card) {
+                    card.classList.remove('card-visible');
+                    card.style.transition = 'all 0.3s ease';
+                });
+
+                setTimeout(function() {
+                    var visibleIndex = 0;
+                    allCards.forEach(function(card) {
+                        var status = card.dataset.status;
+                        if (filter === 'all' || status === filter) {
+                            card.classList.remove('card-hidden');
+                            card.style.position = '';
+                            card.style.visibility = '';
+                            // Stagger in
+                            (function(idx) {
+                                setTimeout(function() {
+                                    card.style.transition = 'all 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
+                                    card.classList.add('card-visible');
+                                }, idx * 100);
+                            })(visibleIndex);
+                            visibleIndex++;
+                        } else {
+                            card.classList.add('card-hidden');
+                        }
+                    });
+                }, 300);
+            });
         });
 
-        // ========== 3D TILT ON GAME CARDS ==========
+        // ========== 3D TILT ON CARDS ==========
         document.querySelectorAll('.game-card').forEach(function(card) {
             card.addEventListener('mousemove', function(e) {
+                if (card.classList.contains('card-hidden')) return;
                 var rect = card.getBoundingClientRect();
                 var x = e.clientX - rect.left;
                 var y = e.clientY - rect.top;
                 var centerX = rect.width / 2;
                 var centerY = rect.height / 2;
-                var rotateX = ((y - centerY) / centerY) * -4;
-                var rotateY = ((x - centerX) / centerX) * 4;
+                var rotateX = ((y - centerY) / centerY) * -5;
+                var rotateY = ((x - centerX) / centerX) * 5;
                 card.style.transform = 'translateY(-8px) scale(1.02) perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
             });
             card.addEventListener('mouseleave', function() {
-                card.style.transform = '';
+                if (card.classList.contains('card-visible')) {
+                    card.style.transform = '';
+                }
             });
+        });
+
+        // ========== CARD SPOTLIGHT ==========
+        document.querySelectorAll('.game-card').forEach(function(card) {
+            var spotlight = card.querySelector('.card-spotlight');
+            if (!spotlight) return;
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.1), transparent 40%)';
+            });
+        });
+
+        // ========== CARD CLICK RIPPLE ==========
+        document.querySelectorAll('.game-card').forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                var rect = card.getBoundingClientRect();
+                var ripple = document.createElement('div');
+                ripple.className = 'card-ripple animating';
+                ripple.style.left = (e.clientX - rect.left) + 'px';
+                ripple.style.top = (e.clientY - rect.top) + 'px';
+                ripple.style.width = '100px';
+                ripple.style.height = '100px';
+                ripple.style.marginLeft = '-50px';
+                ripple.style.marginTop = '-50px';
+                card.appendChild(ripple);
+                setTimeout(function() { if (ripple.parentNode) ripple.parentNode.removeChild(ripple); }, 600);
+            });
+        });
+
+        // ========== GLITCH ON TITLE ==========
+        function triggerGlitch() {
+            var gt = document.querySelector('.gradient-text');
+            if (!gt) return;
+            gt.classList.add('glitching');
+            setTimeout(function() { gt.classList.remove('glitching'); }, 200);
+            setTimeout(triggerGlitch, 3000 + Math.random() * 5000);
+        }
+        setTimeout(triggerGlitch, 4000);
+
+        // ========== TEXT SCRAMBLE ==========
+        var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var scrambledLabels = new Set();
+        var labelObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting && !scrambledLabels.has(entry.target)) {
+                    scrambledLabels.add(entry.target);
+                    var el = entry.target;
+                    var original = el.textContent;
+                    var iterations = 0;
+                    var maxIterations = original.length * 3;
+                    var interval = setInterval(function() {
+                        var text = '';
+                        for (var i = 0; i < original.length; i++) {
+                            if (original[i] === ' ') text += ' ';
+                            else if (i < iterations / 3) text += original[i];
+                            else text += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                        }
+                        el.textContent = text;
+                        iterations++;
+                        if (iterations >= maxIterations) { clearInterval(interval); el.textContent = original; }
+                    }, 30);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.section-label').forEach(function(el) { labelObserver.observe(el); });
+
+        // ========== CURSOR PARTICLE TRAIL ==========
+        var trailParticles = [], maxTrail = 20, trailThrottle = 0;
+        document.addEventListener('mousemove', function(e) {
+            trailThrottle++;
+            if (trailThrottle % 3 !== 0) return;
+            var p = document.createElement('div');
+            p.className = 'cursor-particle';
+            var sz = Math.random() * 4 + 2;
+            p.style.cssText = 'left:' + e.clientX + 'px;top:' + e.clientY + 'px;width:' + sz + 'px;height:' + sz + 'px;opacity:0.7;';
+            document.body.appendChild(p);
+            trailParticles.push(p);
+            var opacity = 0.7, size = sz;
+            var fade = setInterval(function() {
+                opacity -= 0.05; size -= 0.2;
+                if (opacity <= 0 || size <= 0) {
+                    clearInterval(fade);
+                    if (p.parentNode) p.parentNode.removeChild(p);
+                    var idx = trailParticles.indexOf(p);
+                    if (idx > -1) trailParticles.splice(idx, 1);
+                    return;
+                }
+                p.style.opacity = opacity;
+                p.style.width = size + 'px';
+                p.style.height = size + 'px';
+            }, 30);
+            while (trailParticles.length > maxTrail) {
+                var old = trailParticles.shift();
+                if (old.parentNode) old.parentNode.removeChild(old);
+            }
+        });
+
+        // ========== PARALLAX ORBS ==========
+        var orbs = document.querySelectorAll('.orb');
+        window.addEventListener('scroll', function() {
+            var sy = window.scrollY;
+            orbs.forEach(function(orb, i) { orb.style.transform = 'translateY(' + (sy * (i + 1) * 0.03) + 'px)'; });
         });
 
         // ========== LIVE ROBLOX STATS ==========
@@ -1068,141 +1086,8 @@
 
         fetch('data.json')
             .then(function(r) { return r.json(); })
-            .then(function(json) {
-                json.data.forEach(function(game) { renderStats(game); });
-            })
+            .then(function(json) { json.data.forEach(function(game) { renderStats(game); }); })
             .catch(function(err) { console.log('Stats fetch failed:', err); });
-
-
-        // ========== NAVBAR AUTO-HIDE ON SCROLL ==========
-        var lastScrollY = 0;
-        var scrollDelta = 0;
-        var navEl = document.querySelector('nav');
-        window.addEventListener('scroll', function() {
-            var currentY = window.scrollY;
-            if (currentY > lastScrollY && currentY > 80) {
-                scrollDelta += currentY - lastScrollY;
-                if (scrollDelta > 40) {
-                    navEl.classList.add('nav-hidden');
-                    scrollDelta = 0;
-                }
-            } else {
-                scrollDelta = 0;
-                navEl.classList.remove('nav-hidden');
-            }
-            lastScrollY = currentY;
-        });
-
-        // ========== CARD SPOTLIGHT (STRIPE-STYLE) ==========
-        document.querySelectorAll('.game-card').forEach(function(card) {
-            var spotlight = document.createElement('div');
-            spotlight.className = 'card-spotlight';
-            card.insertBefore(spotlight, card.firstChild);
-            card.addEventListener('mousemove', function(e) {
-                var rect = card.getBoundingClientRect();
-                var x = e.clientX - rect.left;
-                var y = e.clientY - rect.top;
-                spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.08), transparent 40%)';
-            });
-        });
-
-        // ========== TEXT SCRAMBLE ON SECTION LABELS ==========
-        var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var scrambledLabels = new Set();
-        var labelObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting && !scrambledLabels.has(entry.target)) {
-                    scrambledLabels.add(entry.target);
-                    scrambleLabel(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.section-label').forEach(function(el) {
-            labelObserver.observe(el);
-        });
-
-        function scrambleLabel(el) {
-            var original = el.textContent;
-            var iterations = 0;
-            var maxIterations = original.length * 3;
-            var interval = setInterval(function() {
-                var text = '';
-                for (var i = 0; i < original.length; i++) {
-                    if (original[i] === ' ') {
-                        text += ' ';
-                    } else if (i < iterations / 3) {
-                        text += original[i];
-                    } else {
-                        text += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-                    }
-                }
-                el.textContent = text;
-                iterations++;
-                if (iterations >= maxIterations) {
-                    clearInterval(interval);
-                    el.textContent = original;
-                }
-            }, 30);
-        }
-
-        // ========== GLITCH ON TITLE ==========
-        var gradientText = document.querySelector('.gradient-text');
-        function triggerGlitch() {
-            if (!gradientText) return;
-            gradientText.classList.add('glitching');
-            setTimeout(function() {
-                gradientText.classList.remove('glitching');
-            }, 200);
-            setTimeout(triggerGlitch, 3000 + Math.random() * 5000);
-        }
-        setTimeout(triggerGlitch, 3000);
-
-        // ========== CURSOR PARTICLE TRAIL ==========
-        var trailParticles = [];
-        var maxTrailParticles = 20;
-        var trailThrottle = 0;
-        document.addEventListener('mousemove', function(e) {
-            trailThrottle++;
-            if (trailThrottle % 3 !== 0) return;
-            var particle = document.createElement('div');
-            particle.className = 'cursor-particle';
-            particle.style.left = e.clientX + 'px';
-            particle.style.top = e.clientY + 'px';
-            particle.style.width = (Math.random() * 4 + 2) + 'px';
-            particle.style.height = particle.style.width;
-            document.body.appendChild(particle);
-            trailParticles.push(particle);
-            var opacity = 0.7;
-            var size = parseFloat(particle.style.width);
-            var fadeInterval = setInterval(function() {
-                opacity -= 0.05;
-                size -= 0.2;
-                if (opacity <= 0 || size <= 0) {
-                    clearInterval(fadeInterval);
-                    if (particle.parentNode) particle.parentNode.removeChild(particle);
-                    var idx = trailParticles.indexOf(particle);
-                    if (idx > -1) trailParticles.splice(idx, 1);
-                    return;
-                }
-                particle.style.opacity = opacity;
-                particle.style.width = size + 'px';
-                particle.style.height = size + 'px';
-            }, 30);
-            while (trailParticles.length > maxTrailParticles) {
-                var old = trailParticles.shift();
-                if (old.parentNode) old.parentNode.removeChild(old);
-            }
-        });
-
-        // ========== PARALLAX ON FLOATING ORBS ==========
-        var orbs = document.querySelectorAll('.orb');
-        window.addEventListener('scroll', function() {
-            var scrollY = window.scrollY;
-            orbs.forEach(function(orb, i) {
-                var speed = (i + 1) * 0.03;
-                orb.style.transform = 'translateY(' + (scrollY * speed) + 'px)';
-            });
-        });
     </script>
 
 </body>
