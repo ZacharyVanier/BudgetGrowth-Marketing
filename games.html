@@ -188,25 +188,10 @@
             position: relative;
         }
 
-        .page-title .gradient-text.glitching::before,
-        .page-title .gradient-text.glitching::after {
-            content: 'Games';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #69f0ae);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .page-title .gradient-text.glitching::before { animation: glitch-1 0.15s linear; clip-path: inset(20% 0 40% 0); }
-        .page-title .gradient-text.glitching::after { animation: glitch-2 0.15s linear; clip-path: inset(60% 0 10% 0); }
+
 
         @keyframes gradient-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
-        @keyframes glitch-1 { 0% { transform: translate(0); } 20% { transform: translate(-3px, 2px); } 40% { transform: translate(3px, -2px); } 60% { transform: translate(-2px, -1px); } 80% { transform: translate(2px, 1px); } 100% { transform: translate(0); } }
-        @keyframes glitch-2 { 0% { transform: translate(0); } 20% { transform: translate(3px, -2px); } 40% { transform: translate(-3px, 2px); } 60% { transform: translate(2px, 1px); } 80% { transform: translate(-2px, -1px); } 100% { transform: translate(0); } }
+
 
         .page-desc {
             color: var(--text-secondary);
@@ -943,45 +928,36 @@
             });
         });
 
-        // ========== 3D TILT ON CARDS ==========
-        document.querySelectorAll('.game-card').forEach(function(card) {
-            card.addEventListener('mousemove', function(e) {
-                if (card.classList.contains('card-hidden')) return;
-                var rect = card.getBoundingClientRect();
-                var x = e.clientX - rect.left;
-                var y = e.clientY - rect.top;
-                var centerX = rect.width / 2;
-                var centerY = rect.height / 2;
-                var rotateX = ((y - centerY) / centerY) * -5;
-                var rotateY = ((x - centerX) / centerX) * 5;
-                card.style.transform = 'translateY(-8px) scale(1.02) perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
-            });
-            card.addEventListener('mouseleave', function() {
-                if (card.classList.contains('card-visible')) {
+        // ========== ALL CARD EFFECTS (tilt + spotlight + ripple) ==========
+        var allGameCards = document.querySelectorAll('.game-card');
+        for (var ci = 0; ci < allGameCards.length; ci++) {
+            (function(card) {
+                var spotlight = card.querySelector('.card-spotlight');
+
+                card.addEventListener('mousemove', function(e) {
+                    if (card.classList.contains('card-hidden')) return;
+                    var rect = card.getBoundingClientRect();
+                    var x = e.clientX - rect.left;
+                    var y = e.clientY - rect.top;
+                    var centerX = rect.width / 2;
+                    var centerY = rect.height / 2;
+                    var rotateX = ((y - centerY) / centerY) * -5;
+                    var rotateY = ((x - centerX) / centerX) * 5;
+                    card.style.transform = 'translateY(-8px) scale(1.02) perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+                    if (spotlight) {
+                        spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.1), transparent 40%)';
+                    }
+                });
+
+                card.addEventListener('mouseleave', function() {
                     card.style.transform = '';
-                }
-            });
-        });
+                });
 
-        // ========== CARD SPOTLIGHT ==========
-        document.querySelectorAll('.game-card').forEach(function(card) {
-            var spotlight = card.querySelector('.card-spotlight');
-            if (!spotlight) return;
-            card.addEventListener('mousemove', function(e) {
-                var rect = card.getBoundingClientRect();
-                var x = e.clientX - rect.left;
-                var y = e.clientY - rect.top;
-                spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.1), transparent 40%)';
-            });
-        });
-
-        // ========== CARD CLICK RIPPLE ==========
-        document.querySelectorAll('.game-card').forEach(function(card) {
-            card.addEventListener('click', function(e) {
-                var rect = card.getBoundingClientRect();
-                var ripple = document.createElement('div');
-                ripple.className = 'card-ripple animating';
-                ripple.style.left = (e.clientX - rect.left) + 'px';
+                card.addEventListener('click', function(e) {
+                    var rect = card.getBoundingClientRect();
+                    var ripple = document.createElement('div');
+                    ripple.className = 'card-ripple animating';
+                    ripple.style.left = (e.clientX - rect.left) + 'px';
                 ripple.style.top = (e.clientY - rect.top) + 'px';
                 ripple.style.width = '100px';
                 ripple.style.height = '100px';
@@ -989,18 +965,11 @@
                 ripple.style.marginTop = '-50px';
                 card.appendChild(ripple);
                 setTimeout(function() { if (ripple.parentNode) ripple.parentNode.removeChild(ripple); }, 600);
-            });
-        });
-
-        // ========== GLITCH ON TITLE ==========
-        function triggerGlitch() {
-            var gt = document.querySelector('.gradient-text');
-            if (!gt) return;
-            gt.classList.add('glitching');
-            setTimeout(function() { gt.classList.remove('glitching'); }, 200);
-            setTimeout(triggerGlitch, 3000 + Math.random() * 5000);
+                });
+            })(allGameCards[ci]);
         }
-        setTimeout(triggerGlitch, 4000);
+
+
 
         // ========== TEXT SCRAMBLE ==========
         var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ';

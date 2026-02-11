@@ -807,6 +807,7 @@
             color: inherit;
             display: block;
             position: relative;
+            transform-style: preserve-3d;
         }
 
         .portfolio-card:hover {
@@ -1390,6 +1391,7 @@
             <p class="section-desc reveal reveal-up reveal-delay-1">A showcase of our highest-performing Roblox experiences.</p>
             <div class="portfolio-grid">
                 <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="portfolio-card reveal reveal-up" data-universe="3012965062">
+                    <div class="card-spotlight"></div>
                     <div class="portfolio-img"><img src="the-presentation-experience.png" alt="The Presentation Experience" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>The Presentation Experience</h3>
@@ -1398,6 +1400,7 @@
                     </div>
                 </a>
                 <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="portfolio-card reveal reveal-up reveal-delay-1" data-universe="7652830984">
+                    <div class="card-spotlight"></div>
                     <div class="portfolio-img"><img src="anime-paradox.png" alt="Anime Paradox" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Anime Paradox</h3>
@@ -1406,6 +1409,7 @@
                     </div>
                 </a>
                 <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="portfolio-card reveal reveal-up reveal-delay-2" data-universe="8032676626">
+                    <div class="card-spotlight"></div>
                     <div class="portfolio-img"><img src="brew-a-potion.png" alt="Brew A Potion" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Brew A Potion</h3>
@@ -1663,8 +1667,8 @@
             revealObserver.observe(el);
         });
 
-        // ========== 3D TILT ON CARDS ==========
-        document.querySelectorAll('.service-card').forEach(function(card) {
+        // ========== 3D TILT ON CARDS (service + portfolio) ==========
+        document.querySelectorAll('.service-card, .portfolio-card').forEach(function(card) {
             card.addEventListener('mousemove', function(e) {
                 var rect = card.getBoundingClientRect();
                 var x = e.clientX - rect.left;
@@ -1673,7 +1677,12 @@
                 var centerY = rect.height / 2;
                 var rotateX = ((y - centerY) / centerY) * -5;
                 var rotateY = ((x - centerX) / centerX) * 5;
-                card.style.transform = 'translateY(-6px) perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+                card.style.transform = 'translateY(-8px) scale(1.02) perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+                // Spotlight
+                var spotlight = card.querySelector('.card-spotlight');
+                if (spotlight) {
+                    spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.08), transparent 40%)';
+                }
             });
             card.addEventListener('mouseleave', function() {
                 card.style.transform = '';
