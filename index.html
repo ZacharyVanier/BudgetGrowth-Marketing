@@ -1689,31 +1689,65 @@
             });
         });
 
-        // ========== COUNTER ANIMATION ==========
-        var statNumbers = document.querySelectorAll('.stat-number');
-        var counterObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting) {
-                    var el = entry.target;
-                    var target = parseFloat(el.dataset.target);
-                    var suffix = el.dataset.suffix || '';
-                    var isDecimal = target % 1 !== 0;
-                    var duration = 2500;
-                    var start = performance.now();
-                    function updateCounter(now) {
-                        var elapsed = now - start;
-                        var progress = Math.min(elapsed / duration, 1);
-                        var eased = 1 - Math.pow(1 - progress, 4);
-                        var current = target * eased;
-                        el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
-                        if (progress < 1) requestAnimationFrame(updateCounter);
+        // ========== COUNTER ANIMATION (starts after preloader) ==========
+        function initCounters() {
+            var statNumbers = document.querySelectorAll('.stat-number');
+            var counterObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var el = entry.target;
+                        var target = parseFloat(el.dataset.target);
+                        var suffix = el.dataset.suffix || '';
+                        var isDecimal = target % 1 !== 0;
+                        var duration = 2800;
+                        var start = performance.now();
+
+                        // Scramble random numbers first for 400ms
+                        var scrambleEnd = start + 400;
+                        function scramble(now) {
+                            if (now < scrambleEnd) {
+                                var rand = isDecimal ? (Math.random() * target * 2).toFixed(1) : Math.floor(Math.random() * target * 2);
+                                el.textContent = rand + suffix;
+                                requestAnimationFrame(scramble);
+                            } else {
+                                countUp();
+                            }
+                        }
+
+                        function countUp() {
+                            var countStart = performance.now();
+                            function updateCounter(now) {
+                                var elapsed = now - countStart;
+                                var progress = Math.min(elapsed / duration, 1);
+                                // Elastic ease out for bounce
+                                var eased;
+                                if (progress < 0.6) {
+                                    eased = (progress / 0.6);
+                                    eased = 1 - Math.pow(1 - eased, 4);
+                                    eased *= 1.05;
+                                } else {
+                                    var t = (progress - 0.6) / 0.4;
+                                    eased = 1.05 - 0.05 * (1 - Math.pow(1 - t, 2));
+                                }
+                                eased = Math.min(eased, 1.05);
+                                var current = target * eased;
+                                if (progress >= 1) current = target;
+                                el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
+                                if (progress < 1) requestAnimationFrame(updateCounter);
+                            }
+                            requestAnimationFrame(updateCounter);
+                        }
+
+                        requestAnimationFrame(scramble);
+                        counterObserver.unobserve(el);
                     }
-                    requestAnimationFrame(updateCounter);
-                    counterObserver.unobserve(el);
-                }
-            });
-        }, { threshold: 0.5 });
-        statNumbers.forEach(function(el) { counterObserver.observe(el); });
+                });
+            }, { threshold: 0.3 });
+            statNumbers.forEach(function(el) { counterObserver.observe(el); });
+        }
+
+        // Delay counter init until preloader is done
+        setTimeout(initCounters, 1800);
 
         // ========== LIVE ROBLOX STATS ==========
         function formatNumber(num) {
