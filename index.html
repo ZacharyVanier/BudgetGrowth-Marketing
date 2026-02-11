@@ -1063,9 +1063,176 @@
             .hero-buttons { flex-direction: column; align-items: center; }
             .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
         }
+
+        /* ========== FILM GRAIN OVERLAY ========== */
+        .grain-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            animation: grain-drift 0.5s steps(1) infinite;
+        }
+
+        @keyframes grain-drift {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -1px); }
+            75% { transform: translate(-1px, -2px); }
+            100% { transform: translate(1px, 1px); }
+        }
+
+        /* ========== CURSOR PARTICLE TRAIL ========== */
+        .cursor-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            pointer-events: none;
+            z-index: 9997;
+            opacity: 0.8;
+            transition: none;
+        }
+
+        /* ========== NAVBAR AUTO-HIDE ========== */
+        nav.nav-hidden {
+            transform: translateY(-100%);
+            box-shadow: none;
+        }
+
+        /* ========== CARD SPOTLIGHT ========== */
+        .card-spotlight {
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .service-card:hover .card-spotlight,
+        .portfolio-card:hover .card-spotlight,
+        .game-card:hover .card-spotlight {
+            opacity: 1;
+        }
+
+        .service-card,
+        .portfolio-card {
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* ========== GLITCH TEXT ========== */
+        .hero-glitch {
+            position: relative;
+        }
+
+        .hero-glitch.glitching::before,
+        .hero-glitch.glitching::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .hero-glitch.glitching::before {
+            color: #00ff88;
+            animation: glitch-1 0.15s linear;
+            clip-path: inset(20% 0 40% 0);
+        }
+
+        .hero-glitch.glitching::after {
+            color: #00cc44;
+            animation: glitch-2 0.15s linear;
+            clip-path: inset(60% 0 10% 0);
+        }
+
+        @keyframes glitch-1 {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 2px); }
+            40% { transform: translate(3px, -2px); }
+            60% { transform: translate(-2px, -1px); }
+            80% { transform: translate(2px, 1px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-2 {
+            0% { transform: translate(0); }
+            20% { transform: translate(3px, -2px); }
+            40% { transform: translate(-3px, 2px); }
+            60% { transform: translate(2px, 1px); }
+            80% { transform: translate(-2px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* ========== MAGNETIC BUTTON ENHANCEMENT ========== */
+        .btn-primary, .btn-secondary {
+            will-change: transform;
+        }
+
+        /* ========== SECTION DIVIDERS ========== */
+        .section-divider {
+            width: 100%;
+            height: 60px;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .section-divider svg {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* ========== ENHANCED STAT GLOW ========== */
+        .stat-item {
+            position: relative;
+        }
+
+        .stat-item::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent), transparent);
+            transition: width 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .stat-item.visible::after {
+            width: 80%;
+        }
+
+        /* ========== SMOOTH TEXT REVEAL FOR LABELS ========== */
+        .scramble-text {
+            display: inline;
+        }
+
+        /* ========== FLOATING PARTICLES BG ========== */
+        .bg-particles {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
     </style>
 </head>
 <body>
+
+
+    <!-- FILM GRAIN -->
+    <div class="grain-overlay"></div>
 
     <!-- PRELOADER -->
     <div class="preloader" id="preloader">
@@ -1180,6 +1347,7 @@
             </div>
             <div class="services-grid">
                 <div class="service-card reveal reveal-scale">
+                    <div class="card-spotlight"></div>
                     <div class="service-icon">
                         <svg width="24" height="24" fill="none" stroke="#00c853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                     </div>
@@ -1187,6 +1355,7 @@
                     <p>We offer strategies built around your Roblox game's audience and genre.</p>
                 </div>
                 <div class="service-card reveal reveal-scale reveal-delay-1">
+                    <div class="card-spotlight"></div>
                     <div class="service-icon">
                         <svg width="24" height="24" fill="none" stroke="#00c853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
@@ -1194,6 +1363,7 @@
                     <p>Coordinating, operating and scaling influencer partnerships as well as keeping Content Creators informed with news, updates and relevant information.</p>
                 </div>
                 <div class="service-card reveal reveal-scale reveal-delay-2">
+                    <div class="card-spotlight"></div>
                     <div class="service-icon">
                         <svg width="24" height="24" fill="none" stroke="#00c853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     </div>
@@ -1201,6 +1371,7 @@
                     <p>Our team specializes in providing paid promotions for your budget and getting the best out of it.</p>
                 </div>
                 <div class="service-card reveal reveal-scale reveal-delay-3">
+                    <div class="card-spotlight"></div>
                     <div class="service-icon">
                         <svg width="24" height="24" fill="none" stroke="#00c853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                     </div>
@@ -1558,6 +1729,183 @@
                 json.data.forEach(function(game) { renderStats(game); });
             })
             .catch(function(err) { console.log('Stats fetch failed:', err); });
+
+
+        // ========== NAVBAR AUTO-HIDE ON SCROLL ==========
+        var lastScrollY = 0;
+        var navbarEl = document.getElementById('navbar');
+        var scrollDelta = 0;
+        window.addEventListener('scroll', function() {
+            var currentY = window.scrollY;
+            if (currentY > lastScrollY && currentY > 80) {
+                scrollDelta += currentY - lastScrollY;
+                if (scrollDelta > 40) {
+                    navbarEl.classList.add('nav-hidden');
+                    scrollDelta = 0;
+                }
+            } else {
+                scrollDelta = 0;
+                navbarEl.classList.remove('nav-hidden');
+            }
+            lastScrollY = currentY;
+        });
+
+        // ========== MAGNETIC BUTTONS ==========
+        document.querySelectorAll('.btn-primary, .btn-secondary').forEach(function(btn) {
+            btn.addEventListener('mousemove', function(e) {
+                var rect = btn.getBoundingClientRect();
+                var x = e.clientX - rect.left - rect.width / 2;
+                var y = e.clientY - rect.top - rect.height / 2;
+                btn.style.transform = 'translate(' + (x * 0.2) + 'px, ' + (y * 0.2) + 'px) scale(1.05)';
+            });
+            btn.addEventListener('mouseleave', function() {
+                btn.style.transform = '';
+            });
+        });
+
+        // ========== CARD SPOTLIGHT (STRIPE-STYLE) ==========
+        document.querySelectorAll('.service-card, .portfolio-card').forEach(function(card) {
+            var spotlight = card.querySelector('.card-spotlight');
+            if (!spotlight) {
+                spotlight = document.createElement('div');
+                spotlight.className = 'card-spotlight';
+                card.insertBefore(spotlight, card.firstChild);
+            }
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.08), transparent 40%)';
+            });
+        });
+
+        // ========== TEXT SCRAMBLE ON SECTION LABELS ==========
+        var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var scrambledLabels = new Set();
+        var labelObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting && !scrambledLabels.has(entry.target)) {
+                    scrambledLabels.add(entry.target);
+                    scrambleLabel(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.section-label').forEach(function(el) {
+            labelObserver.observe(el);
+        });
+
+        function scrambleLabel(el) {
+            var original = el.textContent;
+            var iterations = 0;
+            var maxIterations = original.length * 3;
+            var interval = setInterval(function() {
+                var text = '';
+                for (var i = 0; i < original.length; i++) {
+                    if (original[i] === ' ') {
+                        text += ' ';
+                    } else if (i < iterations / 3) {
+                        text += original[i];
+                    } else {
+                        text += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                    }
+                }
+                el.textContent = text;
+                iterations++;
+                if (iterations >= maxIterations) {
+                    clearInterval(interval);
+                    el.textContent = original;
+                }
+            }, 30);
+        }
+
+        // ========== GLITCH EFFECT ON HERO ==========
+        var heroTitle = document.getElementById('heroTitle');
+        function triggerGlitch() {
+            if (!heroTitle) return;
+            heroTitle.classList.add('hero-glitch');
+            heroTitle.classList.add('glitching');
+            heroTitle.setAttribute('data-text', heroTitle.textContent);
+            setTimeout(function() {
+                heroTitle.classList.remove('glitching');
+            }, 200);
+            // Random interval between 3-8 seconds
+            setTimeout(triggerGlitch, 3000 + Math.random() * 5000);
+        }
+        setTimeout(triggerGlitch, 4000);
+
+        // ========== CURSOR PARTICLE TRAIL ==========
+        var trailParticles = [];
+        var maxTrailParticles = 20;
+        var trailThrottle = 0;
+        document.addEventListener('mousemove', function(e) {
+            trailThrottle++;
+            if (trailThrottle % 3 !== 0) return; // every 3rd move
+            var particle = document.createElement('div');
+            particle.className = 'cursor-particle';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            document.body.appendChild(particle);
+            trailParticles.push(particle);
+
+            // Animate fade & shrink
+            var opacity = 0.7;
+            var size = parseFloat(particle.style.width);
+            var fadeInterval = setInterval(function() {
+                opacity -= 0.05;
+                size -= 0.2;
+                if (opacity <= 0 || size <= 0) {
+                    clearInterval(fadeInterval);
+                    if (particle.parentNode) particle.parentNode.removeChild(particle);
+                    var idx = trailParticles.indexOf(particle);
+                    if (idx > -1) trailParticles.splice(idx, 1);
+                    return;
+                }
+                particle.style.opacity = opacity;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+            }, 30);
+
+            // Cleanup excess
+            while (trailParticles.length > maxTrailParticles) {
+                var old = trailParticles.shift();
+                if (old.parentNode) old.parentNode.removeChild(old);
+            }
+        });
+
+        // ========== PARALLAX ON FLOATING ORBS ==========
+        var orbs = document.querySelectorAll('.orb');
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY;
+            orbs.forEach(function(orb, i) {
+                var speed = (i + 1) * 0.03;
+                orb.style.transform = 'translateY(' + (scrollY * speed) + 'px)';
+            });
+        });
+
+        // ========== ENHANCED STAT GLOW ON SCROLL ==========
+        var statItems = document.querySelectorAll('.stat-item');
+        var statGlowObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.5 });
+        statItems.forEach(function(el) { statGlowObserver.observe(el); });
+
+        // ========== SMOOTH SCROLL TO ANCHORS ==========
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                var targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                var target = document.querySelector(targetId);
+                if (target) {
+                    e.preventDefault();
+                    var offsetTop = target.getBoundingClientRect().top + window.scrollY - 80;
+                    window.scrollTo({ top: offsetTop, behavior: 'smooth' });
+                }
+            });
+        });
     </script>
 
 </body>

@@ -317,6 +317,15 @@
             overflow: hidden;
         }
 
+        .page-header-inner {
+            animation: header-float 6s ease-in-out infinite;
+        }
+
+        @keyframes header-float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
+        }
+
         .page-header::before {
             content: '';
             position: absolute;
@@ -697,9 +706,118 @@
             .games-grid { grid-template-columns: 1fr; }
             .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
         }
+
+        /* ========== FILM GRAIN OVERLAY ========== */
+        .grain-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 9998;
+            pointer-events: none;
+            opacity: 0.035;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+            background-repeat: repeat;
+            animation: grain-drift 0.5s steps(1) infinite;
+        }
+
+        @keyframes grain-drift {
+            0% { transform: translate(0, 0); }
+            25% { transform: translate(-2px, 2px); }
+            50% { transform: translate(2px, -1px); }
+            75% { transform: translate(-1px, -2px); }
+            100% { transform: translate(1px, 1px); }
+        }
+
+        /* ========== CURSOR PARTICLE TRAIL ========== */
+        .cursor-particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background: var(--accent);
+            pointer-events: none;
+            z-index: 9997;
+            opacity: 0.8;
+            transition: none;
+        }
+
+        /* ========== NAVBAR AUTO-HIDE ========== */
+        nav.nav-hidden {
+            transform: translateY(-100%);
+            box-shadow: none;
+        }
+
+        /* ========== CARD SPOTLIGHT ========== */
+        .card-spotlight {
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .game-card:hover .card-spotlight {
+            opacity: 1;
+        }
+
+        /* ========== ENHANCED HEADER TITLE ========== */
+        .page-title .gradient-text {
+            position: relative;
+        }
+
+        .page-title .gradient-text.glitching::before,
+        .page-title .gradient-text.glitching::after {
+            content: 'Games';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #69f0ae);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-title .gradient-text.glitching::before {
+            animation: glitch-1 0.15s linear;
+            clip-path: inset(20% 0 40% 0);
+        }
+
+        .page-title .gradient-text.glitching::after {
+            animation: glitch-2 0.15s linear;
+            clip-path: inset(60% 0 10% 0);
+        }
+
+        @keyframes glitch-1 {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 2px); }
+            40% { transform: translate(3px, -2px); }
+            60% { transform: translate(-2px, -1px); }
+            80% { transform: translate(2px, 1px); }
+            100% { transform: translate(0); }
+        }
+
+        @keyframes glitch-2 {
+            0% { transform: translate(0); }
+            20% { transform: translate(3px, -2px); }
+            40% { transform: translate(-3px, 2px); }
+            60% { transform: translate(2px, 1px); }
+            80% { transform: translate(-2px, -1px); }
+            100% { transform: translate(0); }
+        }
+
+        /* ========== SCRAMBLE TEXT ========== */
+        .scramble-text {
+            display: inline;
+        }
     </style>
 </head>
 <body>
+
+    <!-- FILM GRAIN -->
+    <div class="grain-overlay"></div>
 
     <!-- PRELOADER -->
     <div class="preloader" id="preloader">
@@ -954,6 +1072,137 @@
                 json.data.forEach(function(game) { renderStats(game); });
             })
             .catch(function(err) { console.log('Stats fetch failed:', err); });
+
+
+        // ========== NAVBAR AUTO-HIDE ON SCROLL ==========
+        var lastScrollY = 0;
+        var scrollDelta = 0;
+        var navEl = document.querySelector('nav');
+        window.addEventListener('scroll', function() {
+            var currentY = window.scrollY;
+            if (currentY > lastScrollY && currentY > 80) {
+                scrollDelta += currentY - lastScrollY;
+                if (scrollDelta > 40) {
+                    navEl.classList.add('nav-hidden');
+                    scrollDelta = 0;
+                }
+            } else {
+                scrollDelta = 0;
+                navEl.classList.remove('nav-hidden');
+            }
+            lastScrollY = currentY;
+        });
+
+        // ========== CARD SPOTLIGHT (STRIPE-STYLE) ==========
+        document.querySelectorAll('.game-card').forEach(function(card) {
+            var spotlight = document.createElement('div');
+            spotlight.className = 'card-spotlight';
+            card.insertBefore(spotlight, card.firstChild);
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.08), transparent 40%)';
+            });
+        });
+
+        // ========== TEXT SCRAMBLE ON SECTION LABELS ==========
+        var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        var scrambledLabels = new Set();
+        var labelObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting && !scrambledLabels.has(entry.target)) {
+                    scrambledLabels.add(entry.target);
+                    scrambleLabel(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.section-label').forEach(function(el) {
+            labelObserver.observe(el);
+        });
+
+        function scrambleLabel(el) {
+            var original = el.textContent;
+            var iterations = 0;
+            var maxIterations = original.length * 3;
+            var interval = setInterval(function() {
+                var text = '';
+                for (var i = 0; i < original.length; i++) {
+                    if (original[i] === ' ') {
+                        text += ' ';
+                    } else if (i < iterations / 3) {
+                        text += original[i];
+                    } else {
+                        text += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
+                    }
+                }
+                el.textContent = text;
+                iterations++;
+                if (iterations >= maxIterations) {
+                    clearInterval(interval);
+                    el.textContent = original;
+                }
+            }, 30);
+        }
+
+        // ========== GLITCH ON TITLE ==========
+        var gradientText = document.querySelector('.gradient-text');
+        function triggerGlitch() {
+            if (!gradientText) return;
+            gradientText.classList.add('glitching');
+            setTimeout(function() {
+                gradientText.classList.remove('glitching');
+            }, 200);
+            setTimeout(triggerGlitch, 3000 + Math.random() * 5000);
+        }
+        setTimeout(triggerGlitch, 3000);
+
+        // ========== CURSOR PARTICLE TRAIL ==========
+        var trailParticles = [];
+        var maxTrailParticles = 20;
+        var trailThrottle = 0;
+        document.addEventListener('mousemove', function(e) {
+            trailThrottle++;
+            if (trailThrottle % 3 !== 0) return;
+            var particle = document.createElement('div');
+            particle.className = 'cursor-particle';
+            particle.style.left = e.clientX + 'px';
+            particle.style.top = e.clientY + 'px';
+            particle.style.width = (Math.random() * 4 + 2) + 'px';
+            particle.style.height = particle.style.width;
+            document.body.appendChild(particle);
+            trailParticles.push(particle);
+            var opacity = 0.7;
+            var size = parseFloat(particle.style.width);
+            var fadeInterval = setInterval(function() {
+                opacity -= 0.05;
+                size -= 0.2;
+                if (opacity <= 0 || size <= 0) {
+                    clearInterval(fadeInterval);
+                    if (particle.parentNode) particle.parentNode.removeChild(particle);
+                    var idx = trailParticles.indexOf(particle);
+                    if (idx > -1) trailParticles.splice(idx, 1);
+                    return;
+                }
+                particle.style.opacity = opacity;
+                particle.style.width = size + 'px';
+                particle.style.height = size + 'px';
+            }, 30);
+            while (trailParticles.length > maxTrailParticles) {
+                var old = trailParticles.shift();
+                if (old.parentNode) old.parentNode.removeChild(old);
+            }
+        });
+
+        // ========== PARALLAX ON FLOATING ORBS ==========
+        var orbs = document.querySelectorAll('.orb');
+        window.addEventListener('scroll', function() {
+            var scrollY = window.scrollY;
+            orbs.forEach(function(orb, i) {
+                var speed = (i + 1) * 0.03;
+                orb.style.transform = 'translateY(' + (scrollY * speed) + 'px)';
+            });
+        });
     </script>
 
 </body>
