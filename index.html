@@ -704,7 +704,7 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             background: var(--bg-card);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
@@ -802,7 +802,7 @@
             border-radius: 16px;
             overflow: hidden;
             background: var(--bg-card);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: border-color 0.4s ease, box-shadow 0.4s ease;
             text-decoration: none;
             color: inherit;
             display: block;
@@ -1808,21 +1808,7 @@
             });
         });
 
-        // ========== CARD SPOTLIGHT (STRIPE-STYLE) ==========
-        document.querySelectorAll('.service-card, .portfolio-card').forEach(function(card) {
-            var spotlight = card.querySelector('.card-spotlight');
-            if (!spotlight) {
-                spotlight = document.createElement('div');
-                spotlight.className = 'card-spotlight';
-                card.insertBefore(spotlight, card.firstChild);
-            }
-            card.addEventListener('mousemove', function(e) {
-                var rect = card.getBoundingClientRect();
-                var x = e.clientX - rect.left;
-                var y = e.clientY - rect.top;
-                spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.08), transparent 40%)';
-            });
-        });
+
 
         // ========== TEXT SCRAMBLE ON SECTION LABELS ==========
         var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ';
