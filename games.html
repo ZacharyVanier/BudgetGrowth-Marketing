@@ -71,14 +71,14 @@
         .nav-logo-icon {
             width: 36px;
             height: 36px;
-            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
             border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 900;
-            font-size: 1.1rem;
-            color: #000;
+            overflow: hidden;
+        }
+
+        .nav-logo-icon img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         .nav-logo-text {
@@ -524,7 +524,7 @@
     <!-- NAVBAR -->
     <nav>
         <a href="index.html" class="nav-logo">
-            <div class="nav-logo-icon">BG</div>
+            <div class="nav-logo-icon"><img src="logo.png" alt="BudgetGrowth"></div>
             <div class="nav-logo-text">Budget<span>Growth</span></div>
         </a>
         <ul class="nav-links" id="navLinks">
@@ -634,7 +634,7 @@
         <div class="footer-grid">
             <div class="footer-brand">
                 <a href="index.html" class="nav-logo">
-                    <div class="nav-logo-icon">BG</div>
+                    <div class="nav-logo-icon"><img src="logo.png" alt="BudgetGrowth"></div>
                     <div class="nav-logo-text">Budget<span>Growth</span></div>
                 </a>
                 <p>Roblox-focused marketing agency helping games, brands, and creators grow their presence on the platform.</p>
