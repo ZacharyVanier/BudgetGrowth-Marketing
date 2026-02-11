@@ -828,25 +828,7 @@
         }
         animateHeaderParticles();
 
-        // ========== ANIMATED TITLE ==========
-        (function() {
-            var title = document.getElementById('pageTitle');
-            var line1 = 'All ';
-            var line2 = 'Games';
-            var html = '';
-            var delay = 1.6;
-            var step = 0.05;
-            for (var i = 0; i < line1.length; i++) {
-                var ch = line1[i] === ' ' ? '&nbsp;' : line1[i];
-                html += '<span class="char" style="animation-delay:' + (delay + i * step) + 's">' + ch + '</span>';
-            }
-            html += '<span class="gradient-text">';
-            for (var j = 0; j < line2.length; j++) {
-                html += '<span class="char" style="animation-delay:' + (delay + (line1.length + j) * step) + 's">' + line2[j] + '</span>';
-            }
-            html += '</span>';
-            title.innerHTML = html;
-        })();
+        // Title is static in HTML now
 
         // ========== GAME COUNT COUNTER ==========
         setTimeout(function() {

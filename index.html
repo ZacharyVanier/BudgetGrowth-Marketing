@@ -1489,27 +1489,7 @@
             cursorGlow.style.top = e.clientY + 'px';
         });
 
-        // ========== HERO TEXT ANIMATION ==========
-        function animateHeroTitle() {
-            var title = document.getElementById('heroTitle');
-            var line1 = 'BudgetGrowth';
-            var line2 = 'Marketing';
-            var html = '<span class="gradient-text">';
-            var delay = 1.9;
-            var step = 0.04;
-
-            for (var i = 0; i < line1.length; i++) {
-                var ch = line1[i] === ' ' ? '&nbsp;' : line1[i];
-                html += '<span class="char" style="animation-delay:' + (delay + i * step) + 's">' + ch + '</span>';
-            }
-            html += '</span><br>';
-            for (var j = 0; j < line2.length; j++) {
-                var ch2 = line2[j] === ' ' ? '&nbsp;' : line2[j];
-                html += '<span class="char" style="animation-delay:' + (delay + (line1.length + j) * step) + 's">' + ch2 + '</span>';
-            }
-            title.innerHTML = html;
-        }
-        animateHeroTitle();
+        // Title is static in HTML now
 
         // ========== PARTICLE CANVAS ==========
         var canvas = document.getElementById('heroCanvas');
