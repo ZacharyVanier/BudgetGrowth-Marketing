@@ -386,6 +386,7 @@
             letter-spacing: -0.03em;
             line-height: 1.05;
             margin-bottom: 1.5rem;
+            color: var(--accent);
         }
 
         .hero h1 .char {
@@ -401,10 +402,12 @@
         }
 
         .hero h1 .gradient-text {
+            color: var(--accent);
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #69f0ae);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            color: transparent;
             background-size: 200% 200%;
             animation: gradient-shift 4s ease-in-out infinite;
         }
@@ -1280,7 +1283,7 @@
                 <div class="hero-badge-dot"></div>
                 Roblox Marketing Agency
             </div>
-            <h1 id="heroTitle"></h1>
+            <h1 id="heroTitle"><span class="gradient-text">BudgetGrowth</span><br>Marketing</h1>
             <p class="hero-sub">We don't just promote games. We help build experiences people remember.</p>
             <div class="hero-buttons">
                 <a href="games.html" class="btn-primary">
