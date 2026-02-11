@@ -576,12 +576,48 @@
             overflow: hidden;
             background: var(--bg-card);
             transition: all 0.4s ease;
+            text-decoration: none;
+            color: inherit;
+            display: block;
         }
 
         .portfolio-card:hover {
             border-color: var(--border-hover);
             transform: translateY(-4px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .portfolio-stats {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.6rem;
+        }
+
+        .portfolio-stat {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+
+        .portfolio-stat svg {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+
+        .portfolio-stat.live {
+            color: var(--accent);
+        }
+
+        .portfolio-stat.live::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            animation: pulse-dot 2s infinite;
         }
 
         .portfolio-img {
@@ -991,49 +1027,53 @@
             <h2 class="section-title reveal">Games we've helped grow.</h2>
             <p class="section-desc reveal reveal-delay-1">A showcase of Roblox experiences we've marketed and scaled.</p>
             <div class="portfolio-grid">
-                <div class="portfolio-card reveal">
+                <div class="portfolio-card reveal" data-game="anime-conquest">
                     <div class="portfolio-img"><img src="anime-conquest.webp" alt="Anime Conquest" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Anime Conquest</h3>
                         <p>Anime fighting experience</p>
                     </div>
                 </div>
-                <div class="portfolio-card reveal reveal-delay-1">
+                <a href="https://www.roblox.com/games/136063393518705/Anime-Destroyers" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-1" data-universe="8736631614">
                     <div class="portfolio-img"><img src="anime-destroyers.png" alt="Anime Destroyers" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Anime Destroyers</h3>
                         <p>Anime battle experience</p>
+                        <div class="portfolio-stats" id="stats-8736631614"></div>
                     </div>
-                </div>
-                <div class="portfolio-card reveal reveal-delay-2">
+                </a>
+                <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-2" data-universe="7652830984">
                     <div class="portfolio-img"><img src="anime-paradox.png" alt="Anime Paradox" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Anime Paradox</h3>
                         <p>Anime action experience</p>
+                        <div class="portfolio-stats" id="stats-7652830984"></div>
                     </div>
-                </div>
-                <div class="portfolio-card reveal">
+                </a>
+                <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="portfolio-card reveal" data-universe="8032676626">
                     <div class="portfolio-img"><img src="brew-a-potion.png" alt="Brew A Potion" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Brew A Potion</h3>
                         <p>Potion crafting experience</p>
+                        <div class="portfolio-stats" id="stats-8032676626"></div>
                     </div>
-                </div>
-                <div class="portfolio-card reveal reveal-delay-1">
+                </a>
+                <div class="portfolio-card reveal reveal-delay-1" data-game="sumo-clash">
                     <div class="portfolio-img"><img src="sumo-clash.png" alt="Sumo Clash" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Sumo Clash</h3>
                         <p>Competitive sumo experience</p>
                     </div>
                 </div>
-                <div class="portfolio-card reveal reveal-delay-2">
+                <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-2" data-universe="3012965062">
                     <div class="portfolio-img"><img src="the-presentation-experience.png" alt="The Presentation Experience" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>The Presentation Experience</h3>
                         <p>Comedy classroom experience</p>
+                        <div class="portfolio-stats" id="stats-3012965062"></div>
                     </div>
-                </div>
-                <div class="portfolio-card reveal">
+                </a>
+                <div class="portfolio-card reveal" data-game="shonen-clash">
                     <div class="portfolio-img"><img src="shonen-clash.png" alt="Shonen Clash" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Shonen Clash</h3>
@@ -1231,6 +1271,32 @@
             });
         }, { threshold: 0.5 });
         statNumbers.forEach(function(el) { counterObserver.observe(el); });
+
+        // ========== LIVE ROBLOX STATS ==========
+        function formatNumber(num) {
+            if (num >= 1000000000) return (num / 1000000000).toFixed(1) + 'B';
+            if (num >= 1000000) return (num / 1000000).toFixed(1) + 'M';
+            if (num >= 1000) return (num / 1000).toFixed(1) + 'K';
+            return num.toString();
+        }
+
+        function renderStats(gameData) {
+            var statsEl = document.getElementById('stats-' + gameData.id);
+            if (!statsEl) return;
+            statsEl.innerHTML =
+                '<span class="portfolio-stat live">' + formatNumber(gameData.playing) + ' playing</span>' +
+                '<span class="portfolio-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>' + formatNumber(gameData.visits) + ' visits</span>' +
+                '<span class="portfolio-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' + formatNumber(gameData.favoritedCount) + '</span>';
+        }
+
+        fetch('data.json')
+            .then(function(r) { return r.json(); })
+            .then(function(json) {
+                json.data.forEach(function(game) {
+                    renderStats(game);
+                });
+            })
+            .catch(function(err) { console.log('Stats fetch failed:', err); });
     </script>
 
 </body>
