@@ -8,15 +8,12 @@
     <meta property="og:title" content="BudgetGrowth Marketing">
     <meta property="og:description" content="We don't just promote games. We help build experiences people remember.">
     <meta property="og:type" content="website">
+    <link rel="icon" href="logo.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
         :root {
             --bg-primary: #000000;
@@ -35,9 +32,7 @@
             --gradient-end: #00e676;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -45,6 +40,147 @@
             color: var(--text-primary);
             overflow-x: hidden;
             -webkit-font-smoothing: antialiased;
+        }
+
+        /* ========== PRELOADER ========== */
+        .preloader {
+            position: fixed;
+            inset: 0;
+            z-index: 9999;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 1.5rem;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .preloader.done {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .preloader-logo {
+            width: 80px;
+            height: 80px;
+            animation: preloader-pulse 1.2s ease-in-out infinite;
+        }
+
+        .preloader-logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+
+        .preloader-bar {
+            width: 120px;
+            height: 3px;
+            background: var(--border);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .preloader-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            border-radius: 3px;
+            animation: preloader-fill 1.5s ease-out forwards;
+        }
+
+        @keyframes preloader-pulse {
+            0%, 100% { transform: scale(1); opacity: 0.8; }
+            50% { transform: scale(1.08); opacity: 1; }
+        }
+
+        @keyframes preloader-fill {
+            0% { width: 0; }
+            100% { width: 100%; }
+        }
+
+        /* ========== SCROLL PROGRESS ========== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
+            z-index: 10000;
+            width: 0%;
+            transition: width 0.1s linear;
+            box-shadow: 0 0 10px var(--accent-glow-strong);
+        }
+
+        /* ========== CURSOR GLOW ========== */
+        .cursor-glow {
+            position: fixed;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0, 200, 83, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+            z-index: 1;
+            transform: translate(-50%, -50%);
+            transition: opacity 0.3s ease;
+            opacity: 0;
+        }
+
+        body:hover .cursor-glow {
+            opacity: 1;
+        }
+
+        /* ========== FLOATING ORBS ========== */
+        .floating-orbs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.07;
+            animation: float-orb 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--accent);
+            top: 10%;
+            left: -5%;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #00e676;
+            top: 60%;
+            right: -5%;
+            animation-delay: -7s;
+            animation-duration: 25s;
+        }
+
+        .orb-3 {
+            width: 250px;
+            height: 250px;
+            background: #69f0ae;
+            bottom: 10%;
+            left: 30%;
+            animation-delay: -14s;
+            animation-duration: 22s;
+        }
+
+        @keyframes float-orb {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(60px, -40px) scale(1.1); }
+            50% { transform: translate(-30px, 60px) scale(0.9); }
+            75% { transform: translate(40px, 30px) scale(1.05); }
         }
 
         /* ========== NAVBAR ========== */
@@ -58,12 +194,12 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             background: transparent;
         }
 
         nav.scrolled {
-            background: rgba(0, 0, 0, 0.85);
+            background: rgba(0, 0, 0, 0.8);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
@@ -76,7 +212,10 @@
             gap: 0.75rem;
             text-decoration: none;
             color: var(--text-primary);
+            transition: transform 0.3s ease;
         }
+
+        .nav-logo:hover { transform: scale(1.03); }
 
         .nav-logo-icon {
             width: 36px;
@@ -85,11 +224,7 @@
             overflow: hidden;
         }
 
-        .nav-logo-icon img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-        }
+        .nav-logo-icon img { width: 100%; height: 100%; object-fit: contain; }
 
         .nav-logo-text {
             font-weight: 700;
@@ -97,9 +232,7 @@
             letter-spacing: -0.02em;
         }
 
-        .nav-logo-text span {
-            color: var(--accent);
-        }
+        .nav-logo-text span { color: var(--accent); }
 
         .nav-links {
             display: flex;
@@ -113,7 +246,7 @@
             text-decoration: none;
             font-size: 0.9rem;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
             position: relative;
         }
 
@@ -125,16 +258,11 @@
             width: 0;
             height: 2px;
             background: var(--accent);
-            transition: width 0.3s ease;
+            transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .nav-links a:hover {
-            color: var(--text-primary);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
 
         .nav-cta {
             padding: 0.55rem 1.4rem;
@@ -143,18 +271,29 @@
             border-radius: 8px;
             font-weight: 600;
             font-size: 0.85rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
         }
+
+        .nav-cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.5s ease;
+        }
+
+        .nav-cta:hover::before { transform: translateX(100%); }
 
         .nav-cta:hover {
             background: var(--gradient-end);
-            transform: translateY(-1px);
+            transform: translateY(-2px);
             box-shadow: 0 4px 20px var(--accent-glow-strong);
         }
 
-        .nav-cta::after {
-            display: none !important;
-        }
+        .nav-cta::after { display: none !important; }
 
         .mobile-toggle {
             display: none;
@@ -193,18 +332,15 @@
 
         .hero-overlay {
             position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+            inset: 0;
+            background: radial-gradient(ellipse at center, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
             z-index: 1;
         }
 
         .hero-content {
             position: relative;
             z-index: 2;
-            max-width: 800px;
+            max-width: 850px;
             padding: 0 2rem;
         }
 
@@ -219,6 +355,9 @@
             color: var(--text-secondary);
             margin-bottom: 2rem;
             background: rgba(255,255,255,0.03);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: hero-fade-in 0.8s 1.8s forwards;
         }
 
         .hero-badge-dot {
@@ -234,6 +373,10 @@
             50% { opacity: 0.3; }
         }
 
+        @keyframes hero-fade-in {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .hero h1 {
             font-size: clamp(3rem, 7vw, 5.5rem);
             font-weight: 900;
@@ -242,11 +385,30 @@
             margin-bottom: 1.5rem;
         }
 
+        .hero h1 .char {
+            display: inline-block;
+            opacity: 0;
+            transform: translateY(40px) rotateX(-40deg);
+            animation: char-reveal 0.6s forwards;
+            animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes char-reveal {
+            to { opacity: 1; transform: translateY(0) rotateX(0deg); }
+        }
+
         .hero h1 .gradient-text {
             background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end), #69f0ae);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            background-size: 200% 200%;
+            animation: gradient-shift 4s ease-in-out infinite;
+        }
+
+        @keyframes gradient-shift {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
         }
 
         .hero-sub {
@@ -256,6 +418,9 @@
             margin: 0 auto 2.5rem;
             line-height: 1.7;
             font-weight: 400;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: hero-fade-in 0.8s 2.2s forwards;
         }
 
         .hero-buttons {
@@ -263,6 +428,9 @@
             gap: 1rem;
             justify-content: center;
             flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: hero-fade-in 0.8s 2.5s forwards;
         }
 
         .btn-primary {
@@ -276,15 +444,28 @@
             border-radius: 10px;
             font-weight: 700;
             font-size: 0.95rem;
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
         }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.25), transparent);
+            transform: translateX(-100%);
+            transition: transform 0.6s ease;
+        }
+
+        .btn-primary:hover::before { transform: translateX(100%); }
 
         .btn-primary:hover {
             background: var(--gradient-end);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 30px var(--accent-glow-strong);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px var(--accent-glow-strong);
         }
 
         .btn-secondary {
@@ -299,14 +480,15 @@
             font-weight: 600;
             font-size: 0.95rem;
             border: 1px solid var(--border-hover);
-            transition: all 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             cursor: pointer;
         }
 
         .btn-secondary:hover {
-            border-color: var(--text-muted);
-            background: rgba(255,255,255,0.05);
-            transform: translateY(-2px);
+            border-color: var(--accent);
+            background: var(--accent-glow);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 200, 83, 0.1);
         }
 
         .hero-scroll {
@@ -323,6 +505,8 @@
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.1em;
+            opacity: 0;
+            animation: hero-fade-in 0.8s 3s forwards;
         }
 
         .scroll-line {
@@ -333,8 +517,8 @@
         }
 
         @keyframes scroll-pulse {
-            0%, 100% { opacity: 0.3; height: 40px; }
-            50% { opacity: 1; height: 50px; }
+            0%, 100% { opacity: 0.3; transform: scaleY(1); }
+            50% { opacity: 1; transform: scaleY(1.3); }
         }
 
         /* ========== STATS ========== */
@@ -343,6 +527,8 @@
             border-top: 1px solid var(--border);
             border-bottom: 1px solid var(--border);
             background: var(--bg-secondary);
+            position: relative;
+            z-index: 2;
         }
 
         .stats-grid {
@@ -354,9 +540,7 @@
             text-align: center;
         }
 
-        .stat-item {
-            padding: 1.5rem;
-        }
+        .stat-item { padding: 1.5rem; }
 
         .stat-number {
             font-size: clamp(2.5rem, 5vw, 3.5rem);
@@ -378,6 +562,8 @@
         /* ========== SECTIONS SHARED ========== */
         .section {
             padding: 7rem 2rem;
+            position: relative;
+            z-index: 2;
         }
 
         .section-container {
@@ -399,10 +585,13 @@
 
         .section-label::before {
             content: '';
-            width: 20px;
+            width: 0;
             height: 1px;
             background: var(--accent);
+            transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
+
+        .section-label.visible::before { width: 20px; }
 
         .section-title {
             font-size: clamp(2rem, 4vw, 3rem);
@@ -420,9 +609,7 @@
         }
 
         /* ========== ABOUT ========== */
-        .about {
-            background: var(--bg-primary);
-        }
+        .about { background: var(--bg-primary); }
 
         .about-grid {
             display: grid;
@@ -469,16 +656,21 @@
             justify-content: center;
         }
 
-        .about-visual-text {
-            font-size: 6rem;
-            font-weight: 900;
-            opacity: 0.05;
-            letter-spacing: -0.05em;
-            text-align: center;
-            line-height: 1;
+        .about-visual-logo {
+            width: 150px;
+            height: 150px;
+            opacity: 0.15;
+            animation: float-logo 6s ease-in-out infinite;
         }
 
-        /* ========== SERVICES / MARKETING ACQUISITION ========== */
+        .about-visual-logo img { width: 100%; height: 100%; object-fit: contain; }
+
+        @keyframes float-logo {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(3deg); }
+        }
+
+        /* ========== SERVICES ========== */
         .services {
             background: var(--bg-secondary);
             border-top: 1px solid var(--border);
@@ -506,9 +698,11 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             background: var(--bg-card);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             position: relative;
             overflow: hidden;
+            transform-style: preserve-3d;
+            perspective: 1000px;
         }
 
         .service-card::before {
@@ -523,15 +717,36 @@
             transition: opacity 0.4s ease;
         }
 
-        .service-card:hover {
-            border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        .service-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 16px;
+            padding: 1px;
+            background: linear-gradient(135deg, transparent 40%, var(--accent-glow) 50%, transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            background-size: 300% 300%;
+            animation: border-shimmer 3s linear infinite;
+            pointer-events: none;
         }
 
-        .service-card:hover::before {
-            opacity: 1;
+        @keyframes border-shimmer {
+            0% { background-position: 0% 0%; }
+            100% { background-position: 100% 100%; }
         }
+
+        .service-card:hover {
+            border-color: transparent;
+            transform: translateY(-6px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.4);
+        }
+
+        .service-card:hover::before { opacity: 1; }
+        .service-card:hover::after { opacity: 1; }
 
         .service-icon {
             width: 48px;
@@ -542,7 +757,12 @@
             align-items: center;
             justify-content: center;
             margin-bottom: 1.25rem;
-            font-size: 1.3rem;
+            transition: all 0.4s ease;
+        }
+
+        .service-card:hover .service-icon {
+            background: var(--accent-glow-strong);
+            transform: scale(1.1);
         }
 
         .service-card h3 {
@@ -559,9 +779,7 @@
         }
 
         /* ========== PORTFOLIO ========== */
-        .portfolio {
-            background: var(--bg-primary);
-        }
+        .portfolio { background: var(--bg-primary); }
 
         .portfolio-grid {
             display: grid;
@@ -575,16 +793,17 @@
             border-radius: 16px;
             overflow: hidden;
             background: var(--bg-card);
-            transition: all 0.4s ease;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
             text-decoration: none;
             color: inherit;
             display: block;
+            position: relative;
         }
 
         .portfolio-card:hover {
             border-color: var(--border-hover);
-            transform: translateY(-4px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), 0 0 40px var(--accent-glow);
         }
 
         .portfolio-stats {
@@ -601,15 +820,9 @@
             color: var(--text-muted);
         }
 
-        .portfolio-stat svg {
-            width: 14px;
-            height: 14px;
-            flex-shrink: 0;
-        }
+        .portfolio-stat svg { width: 14px; height: 14px; flex-shrink: 0; }
 
-        .portfolio-stat.live {
-            color: var(--accent);
-        }
+        .portfolio-stat.live { color: var(--accent); }
 
         .portfolio-stat.live::before {
             content: '';
@@ -631,24 +844,20 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .portfolio-card:hover .portfolio-img img {
-            transform: scale(1.05);
-        }
+        .portfolio-card:hover .portfolio-img img { transform: scale(1.1); }
 
         .portfolio-img::after {
             content: '';
             position: absolute;
             inset: 0;
-            background: linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.6) 100%);
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.7) 100%);
             z-index: 1;
         }
 
-        .portfolio-info {
-            padding: 1.25rem 1.5rem;
-        }
+        .portfolio-info { padding: 1.25rem 1.5rem; }
 
         .portfolio-info h3 {
             font-size: 1.05rem;
@@ -659,20 +868,6 @@
         .portfolio-info p {
             color: var(--text-muted);
             font-size: 0.85rem;
-        }
-
-        .badge-unreleased {
-            display: inline-block;
-            padding: 0.2rem 0.6rem;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid var(--border-hover);
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-top: 0.5rem;
         }
 
         .portfolio-section-cta {
@@ -705,36 +900,31 @@
             color: var(--text-primary);
             font-family: 'Inter', sans-serif;
             font-size: 0.95rem;
-            transition: border-color 0.3s ease;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
             outline: none;
         }
 
         .contact-form input:focus,
         .contact-form textarea:focus {
             border-color: var(--accent);
-            box-shadow: 0 0 0 3px var(--accent-glow);
+            box-shadow: 0 0 0 3px var(--accent-glow), 0 0 20px var(--accent-glow);
+            transform: translateY(-1px);
         }
 
-        .contact-form textarea {
-            resize: vertical;
-            min-height: 120px;
-        }
+        .contact-form textarea { resize: vertical; min-height: 120px; }
 
         .contact-form input::placeholder,
-        .contact-form textarea::placeholder {
-            color: var(--text-muted);
-        }
+        .contact-form textarea::placeholder { color: var(--text-muted); }
 
-        .contact-form .btn-primary {
-            width: 100%;
-            justify-content: center;
-        }
+        .contact-form .btn-primary { width: 100%; justify-content: center; }
 
         /* ========== FOOTER ========== */
         footer {
             padding: 4rem 2rem 2rem;
             border-top: 1px solid var(--border);
             background: var(--bg-primary);
+            position: relative;
+            z-index: 2;
         }
 
         .footer-grid {
@@ -762,23 +952,19 @@
             margin-bottom: 1rem;
         }
 
-        .footer-col ul {
-            list-style: none;
-        }
-
-        .footer-col li {
-            margin-bottom: 0.6rem;
-        }
+        .footer-col ul { list-style: none; }
+        .footer-col li { margin-bottom: 0.6rem; }
 
         .footer-col a {
             color: var(--text-muted);
             text-decoration: none;
             font-size: 0.9rem;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
         }
 
         .footer-col a:hover {
             color: var(--accent);
+            padding-left: 4px;
         }
 
         .footer-bottom {
@@ -793,10 +979,7 @@
             font-size: 0.8rem;
         }
 
-        .footer-bottom-links {
-            display: flex;
-            gap: 1.5rem;
-        }
+        .footer-bottom-links { display: flex; gap: 1.5rem; }
 
         .footer-bottom-links a {
             color: var(--text-muted);
@@ -804,61 +987,56 @@
             transition: color 0.3s ease;
         }
 
-        .footer-bottom-links a:hover {
-            color: var(--text-secondary);
-        }
+        .footer-bottom-links a:hover { color: var(--text-secondary); }
 
-        /* ========== SCROLL ANIMATIONS ========== */
+        /* ========== REVEAL ANIMATIONS ========== */
         .reveal {
             opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: all 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-up {
+            transform: translateY(40px);
+        }
+
+        .reveal-left {
+            transform: translateX(-40px);
+        }
+
+        .reveal-right {
+            transform: translateX(40px);
+        }
+
+        .reveal-scale {
+            transform: scale(0.92);
         }
 
         .reveal.visible {
             opacity: 1;
-            transform: translateY(0);
+            transform: translateY(0) translateX(0) scale(1);
         }
 
         .reveal-delay-1 { transition-delay: 0.1s; }
         .reveal-delay-2 { transition-delay: 0.2s; }
         .reveal-delay-3 { transition-delay: 0.3s; }
         .reveal-delay-4 { transition-delay: 0.4s; }
+        .reveal-delay-5 { transition-delay: 0.5s; }
 
         /* ========== RESPONSIVE ========== */
         @media (max-width: 900px) {
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-
-            .stats-grid {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 1rem;
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
+            .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .portfolio-grid { grid-template-columns: 1fr 1fr; }
+            .stats-grid { grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+            .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+            .cursor-glow { display: none; }
         }
 
         @media (max-width: 640px) {
             .nav-links {
                 display: none;
                 position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100vh;
+                inset: 0;
                 background: rgba(0,0,0,0.97);
                 flex-direction: column;
                 align-items: center;
@@ -866,51 +1044,38 @@
                 gap: 2rem;
                 z-index: 999;
             }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .nav-links a {
-                font-size: 1.2rem;
-            }
-
-            .mobile-toggle {
-                display: flex;
-            }
-
-            .stats-grid {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-
-            .stat-item {
-                padding: 1.25rem;
-                border-bottom: 1px solid var(--border);
-            }
-
-            .stat-item:last-child {
-                border-bottom: none;
-            }
-
-            .portfolio-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .footer-bottom {
-                flex-direction: column;
-                gap: 1rem;
-                text-align: center;
-            }
+            .nav-links.active { display: flex; }
+            .nav-links a { font-size: 1.2rem; }
+            .mobile-toggle { display: flex; }
+            .stats-grid { grid-template-columns: 1fr; gap: 0; }
+            .stat-item { padding: 1.25rem; border-bottom: 1px solid var(--border); }
+            .stat-item:last-child { border-bottom: none; }
+            .portfolio-grid { grid-template-columns: 1fr; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .footer-bottom { flex-direction: column; gap: 1rem; text-align: center; }
         }
     </style>
 </head>
 <body>
+
+    <!-- PRELOADER -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-logo"><img src="logo.png" alt="BG"></div>
+        <div class="preloader-bar"><div class="preloader-bar-fill"></div></div>
+    </div>
+
+    <!-- SCROLL PROGRESS -->
+    <div class="scroll-progress" id="scrollProgress"></div>
+
+    <!-- CURSOR GLOW -->
+    <div class="cursor-glow" id="cursorGlow"></div>
+
+    <!-- FLOATING ORBS -->
+    <div class="floating-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
 
     <!-- NAVBAR -->
     <nav id="navbar">
@@ -938,9 +1103,7 @@
                 <div class="hero-badge-dot"></div>
                 Roblox Marketing Agency
             </div>
-            <h1>
-                <span class="gradient-text">BudgetGrowth</span><br>Marketing
-            </h1>
+            <h1 id="heroTitle"></h1>
             <p class="hero-sub">We don't just promote games. We help build experiences people remember.</p>
             <div class="hero-buttons">
                 <a href="games.html" class="btn-primary">
@@ -962,15 +1125,15 @@
     <!-- STATS -->
     <section class="stats">
         <div class="stats-grid">
-            <div class="stat-item reveal">
+            <div class="stat-item reveal reveal-up">
                 <div class="stat-number" data-target="1.3" data-suffix="B+">0</div>
                 <div class="stat-label">Total Sessions</div>
             </div>
-            <div class="stat-item reveal reveal-delay-1">
+            <div class="stat-item reveal reveal-up reveal-delay-1">
                 <div class="stat-number" data-target="50" data-suffix="+">0</div>
                 <div class="stat-label">Projects Marketed</div>
             </div>
-            <div class="stat-item reveal reveal-delay-2">
+            <div class="stat-item reveal reveal-up reveal-delay-2">
                 <div class="stat-number" data-target="100" data-suffix="M+">0</div>
                 <div class="stat-label">Players Reached</div>
             </div>
@@ -980,55 +1143,55 @@
     <!-- ABOUT -->
     <section class="section about" id="about">
         <div class="section-container">
-            <div class="section-label reveal">About Us</div>
-            <h2 class="section-title reveal">We understand the<br>Roblox algorithm.</h2>
+            <div class="section-label reveal reveal-up">About Us</div>
+            <h2 class="section-title reveal reveal-up">We understand the<br>Roblox algorithm.</h2>
             <div class="about-grid">
                 <div class="about-text">
-                    <p class="reveal">We're a Roblox-focused marketing agency dedicated to helping games, brands, and creators grow their presence on the platform. From launching new experiences to scaling existing ones, we specialize in strategies that actually work in Roblox experiences.</p>
-                    <p class="reveal reveal-delay-1">Our team understands the Roblox algorithm. We combine smart advertising, community growth, influencer outreach, and data-driven decisions to deliver real results &mdash; not just numbers.</p>
-                    <p class="reveal reveal-delay-2">Whether you're an independent developer or a large studio, we tailor every campaign to your goals. No generic solutions &mdash; just creative marketing built for Roblox.</p>
-                    <p class="about-highlight reveal reveal-delay-3">We don't just promote games.<br>We help build experiences people remember.</p>
+                    <p class="reveal reveal-left">We're a Roblox-focused marketing agency dedicated to helping games, brands, and creators grow their presence on the platform. From launching new experiences to scaling existing ones, we specialize in strategies that actually work in Roblox experiences.</p>
+                    <p class="reveal reveal-left reveal-delay-1">Our team understands the Roblox algorithm. We combine smart advertising, community growth, influencer outreach, and data-driven decisions to deliver real results &mdash; not just numbers.</p>
+                    <p class="reveal reveal-left reveal-delay-2">Whether you're an independent developer or a large studio, we tailor every campaign to your goals. No generic solutions &mdash; just creative marketing built for Roblox.</p>
+                    <p class="about-highlight reveal reveal-left reveal-delay-3">We don't just promote games.<br>We help build experiences people remember.</p>
                 </div>
-                <div class="about-visual reveal reveal-delay-2">
+                <div class="about-visual reveal reveal-right reveal-delay-2">
                     <div class="about-visual-inner">
-                        <div class="about-visual-text">BG</div>
+                        <div class="about-visual-logo"><img src="logo.png" alt="BG"></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- SERVICES / MARKETING ACQUISITION -->
+    <!-- SERVICES -->
     <section class="section services" id="services">
         <div class="section-container">
             <div class="services-intro">
-                <div class="section-label reveal">Marketing Acquisition</div>
-                <h2 class="section-title reveal">Unlock the full potential of<br>your Roblox creation.</h2>
-                <p class="section-desc reveal reveal-delay-1">Ready to unlock the full potential of your Roblox creation? We offer a seamless exit strategy for game marketing.</p>
+                <div class="section-label reveal reveal-up">Marketing Acquisition</div>
+                <h2 class="section-title reveal reveal-up">Unlock the full potential of<br>your Roblox creation.</h2>
+                <p class="section-desc reveal reveal-up reveal-delay-1">Ready to unlock the full potential of your Roblox creation? We offer a seamless exit strategy for game marketing.</p>
             </div>
             <div class="services-grid">
-                <div class="service-card reveal">
+                <div class="service-card reveal reveal-scale">
                     <div class="service-icon">
                         <svg width="24" height="24" fill="none" stroke="#00c853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
                     </div>
                     <h3>Strategizing & Marketing Plans</h3>
                     <p>We offer strategies built around your Roblox game's audience and genre.</p>
                 </div>
-                <div class="service-card reveal reveal-delay-1">
+                <div class="service-card reveal reveal-scale reveal-delay-1">
                     <div class="service-icon">
                         <svg width="24" height="24" fill="none" stroke="#00c853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
                     </div>
                     <h3>Content Creator Management</h3>
                     <p>Coordinating, operating and scaling influencer partnerships as well as keeping Content Creators informed with news, updates and relevant information.</p>
                 </div>
-                <div class="service-card reveal reveal-delay-2">
+                <div class="service-card reveal reveal-scale reveal-delay-2">
                     <div class="service-icon">
                         <svg width="24" height="24" fill="none" stroke="#00c853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
                     </div>
                     <h3>Paid Promotions</h3>
                     <p>Our team specializes in providing paid promotions for your budget and getting the best out of it.</p>
                 </div>
-                <div class="service-card reveal reveal-delay-3">
+                <div class="service-card reveal reveal-scale reveal-delay-3">
                     <div class="service-icon">
                         <svg width="24" height="24" fill="none" stroke="#00c853" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
                     </div>
@@ -1042,11 +1205,11 @@
     <!-- PORTFOLIO (TOP 3) -->
     <section class="section portfolio" id="portfolio">
         <div class="section-container">
-            <div class="section-label reveal">Our Top Hits</div>
-            <h2 class="section-title reveal">Games we've helped grow.</h2>
-            <p class="section-desc reveal reveal-delay-1">A showcase of our highest-performing Roblox experiences.</p>
+            <div class="section-label reveal reveal-up">Our Top Hits</div>
+            <h2 class="section-title reveal reveal-up">Games we've helped grow.</h2>
+            <p class="section-desc reveal reveal-up reveal-delay-1">A showcase of our highest-performing Roblox experiences.</p>
             <div class="portfolio-grid">
-                <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="portfolio-card reveal" data-universe="3012965062">
+                <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="portfolio-card reveal reveal-up" data-universe="3012965062">
                     <div class="portfolio-img"><img src="the-presentation-experience.png" alt="The Presentation Experience" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>The Presentation Experience</h3>
@@ -1054,7 +1217,7 @@
                         <div class="portfolio-stats" id="stats-3012965062"></div>
                     </div>
                 </a>
-                <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-1" data-universe="7652830984">
+                <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="portfolio-card reveal reveal-up reveal-delay-1" data-universe="7652830984">
                     <div class="portfolio-img"><img src="anime-paradox.png" alt="Anime Paradox" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Anime Paradox</h3>
@@ -1062,7 +1225,7 @@
                         <div class="portfolio-stats" id="stats-7652830984"></div>
                     </div>
                 </a>
-                <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-2" data-universe="8032676626">
+                <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="portfolio-card reveal reveal-up reveal-delay-2" data-universe="8032676626">
                     <div class="portfolio-img"><img src="brew-a-potion.png" alt="Brew A Potion" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>Brew A Potion</h3>
@@ -1071,7 +1234,7 @@
                     </div>
                 </a>
             </div>
-            <div class="portfolio-section-cta reveal">
+            <div class="portfolio-section-cta reveal reveal-up reveal-delay-3">
                 <a href="games.html" class="btn-secondary">
                     <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
                     View All Games
@@ -1083,14 +1246,14 @@
     <!-- CONTACT -->
     <section class="section contact" id="contact">
         <div class="section-container">
-            <div class="section-label reveal">Get in Touch</div>
-            <h2 class="section-title reveal">Ready to grow your game?</h2>
-            <p class="section-desc reveal reveal-delay-1" style="margin: 0 auto;">Drop us a message and let's talk about your Roblox project.</p>
+            <div class="section-label reveal reveal-up">Get in Touch</div>
+            <h2 class="section-title reveal reveal-up">Ready to grow your game?</h2>
+            <p class="section-desc reveal reveal-up reveal-delay-1" style="margin: 0 auto;">Drop us a message and let's talk about your Roblox project.</p>
             <form class="contact-form" onsubmit="return false;">
-                <input type="email" placeholder="Your email" required class="reveal reveal-delay-2">
-                <input type="text" placeholder="Your game link" class="reveal reveal-delay-2">
-                <textarea placeholder="Tell us about your project..." class="reveal reveal-delay-3"></textarea>
-                <button type="submit" class="btn-primary reveal reveal-delay-4">
+                <input type="email" placeholder="Your email" required class="reveal reveal-up reveal-delay-2">
+                <input type="text" placeholder="Your game link" class="reveal reveal-up reveal-delay-2">
+                <textarea placeholder="Tell us about your project..." class="reveal reveal-up reveal-delay-3"></textarea>
+                <button type="submit" class="btn-primary reveal reveal-up reveal-delay-4">
                     <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
                     Send Message
                 </button>
@@ -1136,10 +1299,55 @@
     </footer>
 
     <script>
-        // ========== PARTICLE CANVAS BACKGROUND ==========
-        const canvas = document.getElementById('heroCanvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+        // ========== PRELOADER ==========
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.getElementById('preloader').classList.add('done');
+            }, 1600);
+        });
+
+        // ========== SCROLL PROGRESS ==========
+        window.addEventListener('scroll', function() {
+            var winScroll = document.documentElement.scrollTop;
+            var height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            var scrolled = (winScroll / height) * 100;
+            document.getElementById('scrollProgress').style.width = scrolled + '%';
+        });
+
+        // ========== CURSOR GLOW ==========
+        var cursorGlow = document.getElementById('cursorGlow');
+        document.addEventListener('mousemove', function(e) {
+            cursorGlow.style.left = e.clientX + 'px';
+            cursorGlow.style.top = e.clientY + 'px';
+        });
+
+        // ========== HERO TEXT ANIMATION ==========
+        function animateHeroTitle() {
+            var title = document.getElementById('heroTitle');
+            var line1 = 'BudgetGrowth';
+            var line2 = 'Marketing';
+            var html = '<span class="gradient-text">';
+            var delay = 1.9;
+            var step = 0.04;
+
+            for (var i = 0; i < line1.length; i++) {
+                var ch = line1[i] === ' ' ? '&nbsp;' : line1[i];
+                html += '<span class="char" style="animation-delay:' + (delay + i * step) + 's">' + ch + '</span>';
+            }
+            html += '</span><br>';
+            for (var j = 0; j < line2.length; j++) {
+                var ch2 = line2[j] === ' ' ? '&nbsp;' : line2[j];
+                html += '<span class="char" style="animation-delay:' + (delay + (line1.length + j) * step) + 's">' + ch2 + '</span>';
+            }
+            title.innerHTML = html;
+        }
+        animateHeroTitle();
+
+        // ========== PARTICLE CANVAS ==========
+        var canvas = document.getElementById('heroCanvas');
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var mouse = { x: null, y: null, radius: 150 };
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -1148,52 +1356,82 @@
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas);
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 0.5;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.opacity = Math.random() * 0.5 + 0.1;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-                    this.reset();
+        canvas.addEventListener('mousemove', function(e) {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        canvas.addEventListener('mouseleave', function() {
+            mouse.x = null;
+            mouse.y = null;
+        });
+
+        function Particle() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.baseX = this.x;
+            this.baseY = this.y;
+            this.size = Math.random() * 2 + 0.5;
+            this.speedX = (Math.random() - 0.5) * 0.3;
+            this.speedY = (Math.random() - 0.5) * 0.3;
+            this.opacity = Math.random() * 0.5 + 0.1;
+            this.density = (Math.random() * 30) + 1;
+        }
+
+        Particle.prototype.update = function() {
+            // Mouse interaction
+            if (mouse.x != null && mouse.y != null) {
+                var dx = mouse.x - this.x;
+                var dy = mouse.y - this.y;
+                var dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < mouse.radius) {
+                    var force = (mouse.radius - dist) / mouse.radius;
+                    var forceX = (dx / dist) * force * this.density * 0.3;
+                    var forceY = (dy / dist) * force * this.density * 0.3;
+                    this.x -= forceX;
+                    this.y -= forceY;
                 }
             }
-            draw() {
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fillStyle = 'rgba(0, 200, 83, ' + this.opacity + ')';
-                ctx.fill();
-            }
-        }
+            // Float
+            this.x += this.speedX;
+            this.y += this.speedY;
+            // Return to base slowly
+            this.x += (this.baseX - this.x) * 0.01;
+            this.y += (this.baseY - this.y) * 0.01;
+            // Wrap
+            if (this.x < -10) { this.x = canvas.width + 10; this.baseX = this.x; }
+            if (this.x > canvas.width + 10) { this.x = -10; this.baseX = this.x; }
+            if (this.y < -10) { this.y = canvas.height + 10; this.baseY = this.y; }
+            if (this.y > canvas.height + 10) { this.y = -10; this.baseY = this.y; }
+        };
+
+        Particle.prototype.draw = function() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(0, 200, 83, ' + this.opacity + ')';
+            ctx.fill();
+        };
 
         function initParticles() {
             particles = [];
-            const count = Math.min(Math.floor((canvas.width * canvas.height) / 8000), 150);
-            for (let i = 0; i < count; i++) {
+            var count = Math.min(Math.floor((canvas.width * canvas.height) / 6000), 200);
+            for (var i = 0; i < count; i++) {
                 particles.push(new Particle());
             }
         }
         initParticles();
 
         function connectParticles() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a + 1; b < particles.length; b++) {
-                    const dx = particles[a].x - particles[b].x;
-                    const dy = particles[a].y - particles[b].y;
-                    const dist = Math.sqrt(dx * dx + dy * dy);
-                    if (dist < 120) {
+            for (var a = 0; a < particles.length; a++) {
+                for (var b = a + 1; b < particles.length; b++) {
+                    var dx = particles[a].x - particles[b].x;
+                    var dy = particles[a].y - particles[b].y;
+                    var dist = dx * dx + dy * dy;
+                    if (dist < 14400) { // 120^2
+                        var opacity = 0.08 * (1 - Math.sqrt(dist) / 120);
                         ctx.beginPath();
-                        ctx.strokeStyle = 'rgba(0, 200, 83, ' + (0.08 * (1 - dist / 120)) + ')';
-                        ctx.lineWidth = 0.5;
+                        ctx.strokeStyle = 'rgba(0, 200, 83, ' + opacity + ')';
+                        ctx.lineWidth = 0.6;
                         ctx.moveTo(particles[a].x, particles[a].y);
                         ctx.lineTo(particles[b].x, particles[b].y);
                         ctx.stroke();
@@ -1204,20 +1442,19 @@
 
         function animateParticles() {
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(function(p) { p.update(); p.draw(); });
+            for (var i = 0; i < particles.length; i++) {
+                particles[i].update();
+                particles[i].draw();
+            }
             connectParticles();
             requestAnimationFrame(animateParticles);
         }
         animateParticles();
 
         // ========== NAVBAR SCROLL ==========
-        const navbar = document.getElementById('navbar');
+        var navbar = document.getElementById('navbar');
         window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
+            navbar.classList.toggle('scrolled', window.scrollY > 50);
         });
 
         // ========== MOBILE NAV ==========
@@ -1231,33 +1468,54 @@
         });
 
         // ========== SCROLL REVEAL ==========
-        const revealEls = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver(function(entries) {
+        var revealEls = document.querySelectorAll('.reveal');
+        var revealObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('visible');
                 }
             });
-        }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-        revealEls.forEach(function(el) { revealObserver.observe(el); });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        revealEls.forEach(function(el) {
+            if (!el.classList.contains('reveal-up') && !el.classList.contains('reveal-left') && !el.classList.contains('reveal-right') && !el.classList.contains('reveal-scale')) {
+                el.classList.add('reveal-up');
+            }
+            revealObserver.observe(el);
+        });
+
+        // ========== 3D TILT ON CARDS ==========
+        document.querySelectorAll('.service-card').forEach(function(card) {
+            card.addEventListener('mousemove', function(e) {
+                var rect = card.getBoundingClientRect();
+                var x = e.clientX - rect.left;
+                var y = e.clientY - rect.top;
+                var centerX = rect.width / 2;
+                var centerY = rect.height / 2;
+                var rotateX = ((y - centerY) / centerY) * -5;
+                var rotateY = ((x - centerX) / centerX) * 5;
+                card.style.transform = 'translateY(-6px) perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+            });
+            card.addEventListener('mouseleave', function() {
+                card.style.transform = '';
+            });
+        });
 
         // ========== COUNTER ANIMATION ==========
-        const statNumbers = document.querySelectorAll('.stat-number');
-        const counterObserver = new IntersectionObserver(function(entries) {
+        var statNumbers = document.querySelectorAll('.stat-number');
+        var counterObserver = new IntersectionObserver(function(entries) {
             entries.forEach(function(entry) {
                 if (entry.isIntersecting) {
-                    const el = entry.target;
-                    const target = parseFloat(el.dataset.target);
-                    const suffix = el.dataset.suffix || '';
-                    const isDecimal = target % 1 !== 0;
-                    const duration = 2000;
-                    const start = performance.now();
-
+                    var el = entry.target;
+                    var target = parseFloat(el.dataset.target);
+                    var suffix = el.dataset.suffix || '';
+                    var isDecimal = target % 1 !== 0;
+                    var duration = 2500;
+                    var start = performance.now();
                     function updateCounter(now) {
-                        const elapsed = now - start;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const eased = 1 - Math.pow(1 - progress, 3);
-                        const current = target * eased;
+                        var elapsed = now - start;
+                        var progress = Math.min(elapsed / duration, 1);
+                        var eased = 1 - Math.pow(1 - progress, 4);
+                        var current = target * eased;
                         el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
                         if (progress < 1) requestAnimationFrame(updateCounter);
                     }
@@ -1288,9 +1546,7 @@
         fetch('data.json')
             .then(function(r) { return r.json(); })
             .then(function(json) {
-                json.data.forEach(function(game) {
-                    renderStats(game);
-                });
+                json.data.forEach(function(game) { renderStats(game); });
             })
             .catch(function(err) { console.log('Stats fetch failed:', err); });
     </script>
