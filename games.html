@@ -947,32 +947,7 @@
 
 
 
-        // ========== TEXT SCRAMBLE ==========
-        var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var scrambledLabels = new Set();
-        var labelObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting && !scrambledLabels.has(entry.target)) {
-                    scrambledLabels.add(entry.target);
-                    var el = entry.target;
-                    var original = el.textContent;
-                    var iterations = 0;
-                    var maxIterations = original.length * 3;
-                    var interval = setInterval(function() {
-                        var text = '';
-                        for (var i = 0; i < original.length; i++) {
-                            if (original[i] === ' ') text += ' ';
-                            else if (i < iterations / 3) text += original[i];
-                            else text += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-                        }
-                        el.textContent = text;
-                        iterations++;
-                        if (iterations >= maxIterations) { clearInterval(interval); el.textContent = original; }
-                    }, 30);
-                }
-            });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.section-label').forEach(function(el) { labelObserver.observe(el); });
+
 
         // ========== CURSOR PARTICLE TRAIL ==========
         var trailParticles = [], maxTrail = 20, trailThrottle = 0;

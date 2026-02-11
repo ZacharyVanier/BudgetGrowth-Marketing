@@ -1120,51 +1120,7 @@
             overflow: hidden;
         }
 
-        /* ========== GLITCH TEXT ========== */
-        .hero-glitch {
-            position: relative;
-        }
 
-        .hero-glitch.glitching::before,
-        .hero-glitch.glitching::after {
-            content: attr(data-text);
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-        }
-
-        .hero-glitch.glitching::before {
-            color: #00ff88;
-            animation: glitch-1 0.15s linear;
-            clip-path: inset(20% 0 40% 0);
-        }
-
-        .hero-glitch.glitching::after {
-            color: #00cc44;
-            animation: glitch-2 0.15s linear;
-            clip-path: inset(60% 0 10% 0);
-        }
-
-        @keyframes glitch-1 {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 2px); }
-            40% { transform: translate(3px, -2px); }
-            60% { transform: translate(-2px, -1px); }
-            80% { transform: translate(2px, 1px); }
-            100% { transform: translate(0); }
-        }
-
-        @keyframes glitch-2 {
-            0% { transform: translate(0); }
-            20% { transform: translate(3px, -2px); }
-            40% { transform: translate(-3px, 2px); }
-            60% { transform: translate(2px, 1px); }
-            80% { transform: translate(-2px, -1px); }
-            100% { transform: translate(0); }
-        }
 
         /* ========== MAGNETIC BUTTON ENHANCEMENT ========== */
         .btn-primary, .btn-secondary {
@@ -1208,10 +1164,7 @@
             width: 80%;
         }
 
-        /* ========== SMOOTH TEXT REVEAL FOR LABELS ========== */
-        .scramble-text {
-            display: inline;
-        }
+
 
         /* ========== FLOATING PARTICLES BG ========== */
         .bg-particles {
@@ -1677,34 +1630,12 @@
                         var duration = 2800;
                         var start = performance.now();
 
-                        // Scramble random numbers first for 400ms
-                        var scrambleEnd = start + 400;
-                        function scramble(now) {
-                            if (now < scrambleEnd) {
-                                var rand = isDecimal ? (Math.random() * target * 2).toFixed(1) : Math.floor(Math.random() * target * 2);
-                                el.textContent = rand + suffix;
-                                requestAnimationFrame(scramble);
-                            } else {
-                                countUp();
-                            }
-                        }
-
                         function countUp() {
                             var countStart = performance.now();
                             function updateCounter(now) {
                                 var elapsed = now - countStart;
                                 var progress = Math.min(elapsed / duration, 1);
-                                // Elastic ease out for bounce
-                                var eased;
-                                if (progress < 0.6) {
-                                    eased = (progress / 0.6);
-                                    eased = 1 - Math.pow(1 - eased, 4);
-                                    eased *= 1.05;
-                                } else {
-                                    var t = (progress - 0.6) / 0.4;
-                                    eased = 1.05 - 0.05 * (1 - Math.pow(1 - t, 2));
-                                }
-                                eased = Math.min(eased, 1.05);
+                                var eased = 1 - Math.pow(1 - progress, 3);
                                 var current = target * eased;
                                 if (progress >= 1) current = target;
                                 el.textContent = (isDecimal ? current.toFixed(1) : Math.floor(current)) + suffix;
@@ -1712,8 +1643,7 @@
                             }
                             requestAnimationFrame(updateCounter);
                         }
-
-                        requestAnimationFrame(scramble);
+                        countUp();
                         counterObserver.unobserve(el);
                     }
                 });
@@ -1783,59 +1713,9 @@
 
 
 
-        // ========== TEXT SCRAMBLE ON SECTION LABELS ==========
-        var scrambleChars = '!@#$%^&*()_+-=[]{}|;:,./<>?ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-        var scrambledLabels = new Set();
-        var labelObserver = new IntersectionObserver(function(entries) {
-            entries.forEach(function(entry) {
-                if (entry.isIntersecting && !scrambledLabels.has(entry.target)) {
-                    scrambledLabels.add(entry.target);
-                    scrambleLabel(entry.target);
-                }
-            });
-        }, { threshold: 0.5 });
-        document.querySelectorAll('.section-label').forEach(function(el) {
-            labelObserver.observe(el);
-        });
 
-        function scrambleLabel(el) {
-            var original = el.textContent;
-            var iterations = 0;
-            var maxIterations = original.length * 3;
-            var interval = setInterval(function() {
-                var text = '';
-                for (var i = 0; i < original.length; i++) {
-                    if (original[i] === ' ') {
-                        text += ' ';
-                    } else if (i < iterations / 3) {
-                        text += original[i];
-                    } else {
-                        text += scrambleChars[Math.floor(Math.random() * scrambleChars.length)];
-                    }
-                }
-                el.textContent = text;
-                iterations++;
-                if (iterations >= maxIterations) {
-                    clearInterval(interval);
-                    el.textContent = original;
-                }
-            }, 30);
-        }
 
-        // ========== GLITCH EFFECT ON HERO ==========
-        var heroTitle = document.getElementById('heroTitle');
-        function triggerGlitch() {
-            if (!heroTitle) return;
-            heroTitle.classList.add('hero-glitch');
-            heroTitle.classList.add('glitching');
-            heroTitle.setAttribute('data-text', heroTitle.textContent);
-            setTimeout(function() {
-                heroTitle.classList.remove('glitching');
-            }, 200);
-            // Random interval between 3-8 seconds
-            setTimeout(triggerGlitch, 3000 + Math.random() * 5000);
-        }
-        setTimeout(triggerGlitch, 4000);
+
 
         // ========== CURSOR PARTICLE TRAIL ==========
         var trailParticles = [];
