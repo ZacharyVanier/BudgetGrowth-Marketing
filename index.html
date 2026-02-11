@@ -661,6 +661,25 @@
             font-size: 0.85rem;
         }
 
+        .badge-unreleased {
+            display: inline-block;
+            padding: 0.2rem 0.6rem;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border-hover);
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-top: 0.5rem;
+        }
+
+        .portfolio-section-cta {
+            text-align: center;
+            margin-top: 3rem;
+        }
+
         /* ========== CONTACT ========== */
         .contact {
             background: var(--bg-secondary);
@@ -902,7 +921,7 @@
         <ul class="nav-links" id="navLinks">
             <li><a href="#about">About</a></li>
             <li><a href="#services">Services</a></li>
-            <li><a href="#portfolio">Projects</a></li>
+            <li><a href="games.html">Projects</a></li>
             <li><a href="#contact" class="nav-cta">Talk to Us</a></li>
         </ul>
         <div class="mobile-toggle" id="mobileToggle" onclick="toggleNav()">
@@ -924,7 +943,7 @@
             </h1>
             <p class="hero-sub">We don't just promote games. We help build experiences people remember.</p>
             <div class="hero-buttons">
-                <a href="#portfolio" class="btn-primary">
+                <a href="games.html" class="btn-primary">
                     <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
                     Explore Projects
                 </a>
@@ -1020,52 +1039,14 @@
         </div>
     </section>
 
-    <!-- PORTFOLIO -->
+    <!-- PORTFOLIO (TOP 3) -->
     <section class="section portfolio" id="portfolio">
         <div class="section-container">
-            <div class="section-label reveal">Our Work</div>
+            <div class="section-label reveal">Our Top Hits</div>
             <h2 class="section-title reveal">Games we've helped grow.</h2>
-            <p class="section-desc reveal reveal-delay-1">A showcase of Roblox experiences we've marketed and scaled.</p>
+            <p class="section-desc reveal reveal-delay-1">A showcase of our highest-performing Roblox experiences.</p>
             <div class="portfolio-grid">
-                <div class="portfolio-card reveal" data-game="anime-conquest">
-                    <div class="portfolio-img"><img src="anime-conquest.webp" alt="Anime Conquest" loading="lazy"></div>
-                    <div class="portfolio-info">
-                        <h3>Anime Conquest</h3>
-                        <p>Anime fighting experience</p>
-                    </div>
-                </div>
-                <a href="https://www.roblox.com/games/136063393518705/Anime-Destroyers" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-1" data-universe="8736631614">
-                    <div class="portfolio-img"><img src="anime-destroyers.png" alt="Anime Destroyers" loading="lazy"></div>
-                    <div class="portfolio-info">
-                        <h3>Anime Destroyers</h3>
-                        <p>Anime battle experience</p>
-                        <div class="portfolio-stats" id="stats-8736631614"></div>
-                    </div>
-                </a>
-                <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-2" data-universe="7652830984">
-                    <div class="portfolio-img"><img src="anime-paradox.png" alt="Anime Paradox" loading="lazy"></div>
-                    <div class="portfolio-info">
-                        <h3>Anime Paradox</h3>
-                        <p>Anime action experience</p>
-                        <div class="portfolio-stats" id="stats-7652830984"></div>
-                    </div>
-                </a>
-                <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="portfolio-card reveal" data-universe="8032676626">
-                    <div class="portfolio-img"><img src="brew-a-potion.png" alt="Brew A Potion" loading="lazy"></div>
-                    <div class="portfolio-info">
-                        <h3>Brew A Potion</h3>
-                        <p>Potion crafting experience</p>
-                        <div class="portfolio-stats" id="stats-8032676626"></div>
-                    </div>
-                </a>
-                <div class="portfolio-card reveal reveal-delay-1" data-game="sumo-clash">
-                    <div class="portfolio-img"><img src="sumo-clash.png" alt="Sumo Clash" loading="lazy"></div>
-                    <div class="portfolio-info">
-                        <h3>Sumo Clash</h3>
-                        <p>Competitive sumo experience</p>
-                    </div>
-                </div>
-                <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-2" data-universe="3012965062">
+                <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="portfolio-card reveal" data-universe="3012965062">
                     <div class="portfolio-img"><img src="the-presentation-experience.png" alt="The Presentation Experience" loading="lazy"></div>
                     <div class="portfolio-info">
                         <h3>The Presentation Experience</h3>
@@ -1073,13 +1054,28 @@
                         <div class="portfolio-stats" id="stats-3012965062"></div>
                     </div>
                 </a>
-                <div class="portfolio-card reveal" data-game="shonen-clash">
-                    <div class="portfolio-img"><img src="shonen-clash.png" alt="Shonen Clash" loading="lazy"></div>
+                <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-1" data-universe="7652830984">
+                    <div class="portfolio-img"><img src="anime-paradox.png" alt="Anime Paradox" loading="lazy"></div>
                     <div class="portfolio-info">
-                        <h3>Shonen Clash</h3>
-                        <p>Anime combat experience</p>
+                        <h3>Anime Paradox</h3>
+                        <p>Anime action experience</p>
+                        <div class="portfolio-stats" id="stats-7652830984"></div>
                     </div>
-                </div>
+                </a>
+                <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="portfolio-card reveal reveal-delay-2" data-universe="8032676626">
+                    <div class="portfolio-img"><img src="brew-a-potion.png" alt="Brew A Potion" loading="lazy"></div>
+                    <div class="portfolio-info">
+                        <h3>Brew A Potion</h3>
+                        <p>Potion crafting experience</p>
+                        <div class="portfolio-stats" id="stats-8032676626"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="portfolio-section-cta reveal">
+                <a href="games.html" class="btn-secondary">
+                    <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    View All Games
+                </a>
             </div>
         </div>
     </section>
@@ -1125,7 +1121,7 @@
                 <h4>Company</h4>
                 <ul>
                     <li><a href="#about">About Us</a></li>
-                    <li><a href="#portfolio">Projects</a></li>
+                    <li><a href="games.html">Projects</a></li>
                     <li><a href="#contact">Contact</a></li>
                 </ul>
             </div>
@@ -1133,7 +1129,7 @@
         <div class="footer-bottom">
             <span>&copy; 2026 BudgetGrowth Marketing. All rights reserved.</span>
             <div class="footer-bottom-links">
-                <a href="#portfolio">Projects</a>
+                <a href="games.html">Projects</a>
                 <a href="#contact">Contact</a>
             </div>
         </div>
