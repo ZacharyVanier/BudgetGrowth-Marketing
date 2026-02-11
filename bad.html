@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BudjetGrowth Marketting!!1! | #1 Roblos Marketin Agancy</title>
+    <link rel="icon" href="logo.png" type="image/png">
+    <style>
+        body {
+            font-family: 'Comic Sans MS', 'Chalkboard SE', cursive;
+            background: #ff00ff;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' xmlns='http://www.w3.org/2000/svg'%3E%3Crect width='40' height='40' fill='%23ff00ff'/%3E%3Ccircle cx='20' cy='20' r='3' fill='%23ff69b4'/%3E%3C/svg%3E");
+            color: #00ff00;
+            cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Ctext y='28' font-size='28'%3E%F0%9F%91%86%3C/text%3E%3C/svg%3E"), auto;
+            overflow-x: hidden;
+            margin: 0; padding: 0;
+        }
+        marquee { font-size: 14px; color: yellow; }
+        .rainbow {
+            background: linear-gradient(to right, red, orange, yellow, green, blue, indigo, violet);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            background-clip: text; animation: rainbow-shift 2s linear infinite; background-size: 400% 100%;
+        }
+        @keyframes rainbow-shift { 0% { background-position: 0% 50%; } 100% { background-position: 400% 50%; } }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+        @keyframes shake { 0%,100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+        @keyframes grow-shrink { 0%,100% { transform: scale(1); } 50% { transform: scale(1.3); } }
+        @keyframes wiggle { 0%,100% { transform: rotate(-3deg); } 50% { transform: rotate(3deg); } }
+        .blink { animation: blink 0.5s step-end infinite; }
+        .spin { animation: spin 3s linear infinite; display: inline-block; }
+        .shake { animation: shake 0.3s infinite; }
+        .wiggle { animation: wiggle 0.5s infinite; display: inline-block; }
+
+        .navbar {
+            background: linear-gradient(to right, #ff0000, #0000ff);
+            padding: 10px; text-align: center; border-bottom: 5px dashed yellow;
+            position: sticky; top: 0; z-index: 999;
+        }
+        .navbar a { color: #00ff00; text-decoration: underline; font-size: 20px; margin: 0 5px; font-weight: bold; }
+        .navbar a:hover { color: yellow; font-size: 25px; }
+
+        .hero {
+            text-align: center; padding: 40px 10px;
+            background: linear-gradient(45deg, #000080, #800080, #008080);
+            border: 8px ridge gold; margin: 10px;
+        }
+        .hero h1 { font-size: 52px; color: #00ff00; text-shadow: 3px 3px 0 red, -3px -3px 0 blue, 3px -3px 0 yellow; }
+        .hero h2 { color: cyan; font-size: 18px; margin-top: 10px; }
+        .hero-logo { width: 150px; animation: spin 4s linear infinite; border: 5px dotted lime; margin: 15px auto; display: block; }
+        .cta-btn {
+            display: inline-block; background: red; color: white; padding: 15px 40px;
+            font-size: 22px; font-family: 'Comic Sans MS', cursive; border: 4px outset #ff6666;
+            cursor: pointer; margin-top: 15px; text-decoration: none; animation: grow-shrink 1s infinite;
+        }
+        .cta-btn:hover { background: yellow; color: black; }
+
+        .construction { text-align: center; padding: 15px; background: yellow; color: black; font-size: 20px; border: 3px dashed red; margin: 10px; }
+        .construction span { animation: blink 0.8s step-end infinite; }
+
+        .stats-section { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; padding: 20px; background: #000; border: 5px groove lime; margin: 10px; }
+        .stat-box { background: navy; border: 3px outset #6666ff; padding: 20px; text-align: center; width: 200px; }
+        .stat-box .number { font-size: 36px; color: #ff0; font-weight: bold; }
+        .stat-box .label { color: #0ff; font-size: 14px; margin-top: 5px; }
+
+        .about-section { background: #800000; border: 5px ridge silver; margin: 10px; padding: 20px; }
+        .about-section h2 { color: yellow; font-size: 30px; text-align: center; text-decoration: underline overline; }
+        .about-section p { color: #ffa500; font-size: 16px; line-height: 2; text-align: center; margin-top: 10px; }
+
+        .services-section { margin: 10px; padding: 20px; background: teal; border: 5px double yellow; }
+        .services-section h2 { text-align: center; color: white; font-size: 28px; text-shadow: 2px 2px purple; }
+        .services-table { width: 100%; border-collapse: collapse; margin-top: 15px; background: #003333; }
+        .services-table td { border: 2px solid lime; padding: 15px; text-align: center; color: #0ff; font-size: 15px; width: 25%; vertical-align: top; }
+        .services-table td:hover { background: purple; color: yellow; }
+        .service-icon { font-size: 40px; display: block; margin-bottom: 8px; }
+
+        .games-section { margin: 10px; padding: 20px; background: #2d0053; border: 5px inset hotpink; }
+        .games-section h2 { text-align: center; color: hotpink; font-size: 30px; text-shadow: 2px 2px lime; }
+        .games-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 15px; margin-top: 15px; }
+        .game-card { background: #1a003a; border: 3px outset #ff69b4; width: 280px; text-align: center; padding-bottom: 10px; }
+        .game-card:hover { border-color: yellow; transform: rotate(2deg) scale(1.05); }
+        .game-card img { width: 100%; height: 160px; object-fit: cover; border-bottom: 2px dashed lime; }
+        .game-card h3 { color: #0f0; font-size: 16px; margin-top: 8px; padding: 0 5px; }
+        .game-card .badge { display: inline-block; padding: 2px 10px; font-size: 11px; border: 1px solid; margin-top: 5px; }
+        .badge-live { background: lime; color: black; border-color: green; }
+        .badge-soon { background: red; color: white; border-color: darkred; animation: blink 1s step-end infinite; }
+
+        .contact-section { margin: 10px; padding: 20px; background: olive; border: 5px ridge #aaaa00; text-align: center; }
+        .contact-section h2 { color: white; font-size: 28px; }
+        .contact-section input, .contact-section textarea {
+            display: block; margin: 8px auto; padding: 8px; width: 300px;
+            font-family: 'Comic Sans MS', cursive; font-size: 14px; background: #ffff99; border: 2px inset #999;
+        }
+        .contact-section button {
+            background: red; color: white; border: 3px outset #ff6666; padding: 10px 30px;
+            font-size: 18px; font-family: 'Comic Sans MS', cursive; cursor: pointer; margin-top: 5px;
+        }
+        .contact-section button:hover { background: lime; color: black; }
+
+        .footer { text-align: center; padding: 20px; background: #000; border-top: 3px dashed lime; color: gray; font-size: 12px; }
+        .visitor-counter { display: inline-block; background: #222; border: 1px inset gray; padding: 3px 10px; color: #0f0; font-family: 'Courier New', monospace; font-size: 14px; margin: 8px; }
+
+        .scroll-top { position: fixed; bottom: 20px; right: 20px; background: red; color: white; border: 3px outset #ff6666; padding: 10px; font-size: 20px; cursor: pointer; animation: grow-shrink 2s infinite; z-index: 998; }
+
+        .falling-emoji { position: fixed; top: -50px; font-size: 30px; z-index: 0; pointer-events: none; animation: fall linear infinite; }
+        @keyframes fall { 0% { transform: translateY(-50px) rotate(0deg); opacity: 1; } 100% { transform: translateY(110vh) rotate(720deg); opacity: 0.3; } }
+
+        .sparkle { position: fixed; width: 10px; height: 10px; pointer-events: none; z-index: 9999; animation: sparkle-die 0.6s ease-out forwards; }
+        @keyframes sparkle-die { 0% { transform: scale(1); opacity: 1; } 100% { transform: scale(0) translateY(-30px); opacity: 0; } }
+
+        .follow-tooltip { position: fixed; background: yellow; color: black; padding: 5px 10px; font-size: 12px; border: 2px solid red; pointer-events: none; z-index: 10000; font-family: 'Comic Sans MS', cursive; display: none; }
+        body:hover .follow-tooltip { display: block; }
+
+        @media (max-width: 600px) { .hero h1 { font-size: 28px; } .game-card { width: 90%; } .services-table td { display: block; width: 100%; } }
+    </style>
+</head>
+<body>
+
+<div id="emoji-container"></div>
+<div class="follow-tooltip" id="tooltip">ur on my website!! :D</div>
+
+<!-- NAVBAR -->
+<div class="navbar">
+    <span class="wiggle">&#127775;</span>
+    <a href="#home">HOME</a> |
+    <a href="#about">ABOUT US</a> |
+    <a href="#services">SERVECES</a> |
+    <a href="#games">GAEMS</a> |
+    <a href="#contact">CONTAKT</a>
+    <span class="wiggle">&#127775;</span>
+</div>
+
+<marquee behavior="alternate" scrollamount="8" style="background:#000;padding:5px;">
+    &#9733; WELCOM TO BUDJETGROWTH MARKETTING &#9733; THE #1 ROBLOS MARKETING AGANCY IN THE WROLD &#9733; WE MAKE UR GAME FAMOS &#9733; CLICK EVRYWERE &#9733; THIS WEBSITE IS 100% PROFESIONAL &#9733; HIRE US PLS &#9733;
+</marquee>
+
+<!-- HERO -->
+<div class="hero" id="home">
+    <img src="logo.png" class="hero-logo" alt="logo spinning because why not">
+    <h1 class="rainbow">BudjetGrowth Marketting</h1>
+    <h2>we dont just promot games... we make them go <span class="blink" style="color:red;font-size:24px;">VIRAL!!!!!!</span></h2>
+    <p style="color:#aaa;margin-top:10px;font-size:13px;">* results may varry. not responsable for any explosions</p>
+    <br>
+    <a class="cta-btn" href="#contact">&#128640; HIRE US NOW !!!!! &#128640;</a>
+    <br><br>
+    <span style="color:gray;font-size:11px;">&#9888; WARNING: this website contain awsome content &#9888;</span>
+</div>
+
+<!-- UNDER CONSTRUCTION -->
+<div class="construction">
+    &#128679; <span>UNDER CONSTRUCSION</span> &#128679; some parts of this websit may not work becuz im still lerning html &#128679;
+</div>
+
+<!-- STATS -->
+<div class="stats-section" id="stats">
+    <div class="stat-box"><div class="number shake">1,300,000,000+</div><div class="label">Total Sessons (thats alot)</div></div>
+    <div class="stat-box"><div class="number shake">50+</div><div class="label">Projets Marketted</div></div>
+    <div class="stat-box"><div class="number shake">100,000,000+</div><div class="label">Playes Reched</div></div>
+    <div class="stat-box"><div class="number shake" style="color:lime;">$$$</div><div class="label">Money (trust me)</div></div>
+</div>
+
+<!-- ABOUT -->
+<div class="about-section" id="about">
+    <h2 class="wiggle">&#129300; Who We Are &#129300;</h2>
+    <p>
+        BudjetGrowth Marketting is the <b style="color:lime;">BEST</b> roblox marketing agancy ever created in the histroy of mankind (probaly).
+        <br><br>
+        We have been doing marketing for like <span style="color:yellow;">at least 3 weeks</span> and already we are basicaly experts.
+        <br><br>
+        Our team consists of <span style="color:cyan;">highly trained profesionals</span> who definetly know what SEO stands for (Search Engine... Optimization? ya thats it).
+        <br><br>
+        We promis to make ur game go from 0 players to <span class="blink" style="color:lime;font-size:20px;">MAYBE 12 PLAYERS</span> in no time!!!
+    </p>
+</div>
+
+<!-- SERVICES -->
+<div class="services-section" id="services">
+    <h2>&#128736; Our Serveces &#128736;</h2>
+    <table class="services-table"><tr>
+        <td><span class="service-icon spin">&#128227;</span><b>Social Media Managment</b><br><br>we will post on ur twitter like 2-3 times a week probly. maybe more if we remeber</td>
+        <td><span class="service-icon spin">&#128200;</span><b>Analitiks &amp; Straegy</b><br><br>we look at the numbers and go "hmm yes those are numbers" and then make a plan</td>
+        <td><span class="service-icon spin">&#127916;</span><b>Contnt Creashun</b><br><br>we make thumbnales in paint.net (its free and basicaly photoshop)</td>
+        <td><span class="service-icon spin">&#128176;</span><b>Influncer Outreech</b><br><br>we dm roblox youtubers and say "pls play our game" until they block us</td>
+    </tr></table>
+</div>
+
+<!-- GAMES -->
+<div class="games-section" id="games">
+    <h2>&#127918; Our Gaems (they are all bangers) &#127918;</h2>
+    <div class="games-grid">
+        <div class="game-card"><img src="anime-paradox.png" alt="anime paradocs"><h3>Anime Paradocs</h3><span class="badge badge-live">&#9989; LIVE (real)</span></div>
+        <div class="game-card"><img src="anime-destroyers.png" alt="anime destoryers"><h3>Anime Destoryers</h3><span class="badge badge-live">&#9989; ALSO LIVE</span></div>
+        <div class="game-card"><img src="anime-conquest.webp" alt="anime concwest"><h3>Anime Concwest</h3><span class="badge badge-live">&#9989; YEP LIVE TOO</span></div>
+        <div class="game-card"><img src="brew-a-potion.png" alt="brew a posion"><h3>Brew a Posion</h3><span class="badge badge-live">&#9989; SUPER LIVE</span></div>
+        <div class="game-card"><img src="sumo-clash.png" alt="sumo calsh"><h3>Sumo Calsh</h3><span class="badge badge-soon">&#128680; COMING SOON (maybe)</span></div>
+        <div class="game-card"><img src="shonen-clash.png" alt="shonen calsh"><h3>Shonen Calsh</h3><span class="badge badge-soon">&#128680; SOON TM</span></div>
+        <div class="game-card"><img src="the-presentation-experience.png" alt="the presentashun"><h3>The Presentashun Experiance</h3><span class="badge badge-soon">&#128680; EVENTULLY</span></div>
+    </div>
+</div>
+
+<!-- CONTACT / GUESTBOOK -->
+<div class="contact-section" id="contact">
+    <h2>&#128236; Sign Our Gestbook!! &#128236;</h2>
+    <p style="color:#ffff99;margin-bottom:10px;">leave a mesage and we will definetly read it (no we wont)</p>
+    <input type="text" placeholder="ur name (or fake name idc)" id="gb-name">
+    <input type="email" placeholder="ur email (we wont spam u... probly)" id="gb-email">
+    <textarea rows="4" placeholder="tell us how much u luv our website..." id="gb-msg"></textarea>
+    <button onclick="submitGuestbook()">&#128228; SEND IT &#128228;</button>
+    <div id="gb-result" style="margin-top:10px;color:yellow;font-size:14px;"></div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div style="margin:10px;padding:20px;background:#001a00;border:5px groove lime;text-align:center;">
+    <h2 style="color:lime;font-size:24px;">&#11088; Totaly Real Testimonals &#11088;</h2>
+    <br>
+    <p style="color:#0f0;font-size:16px;"><i>"BudjetGrowth made my game go from 2 players to 7 players. Game changer."</i></p>
+    <p style="color:gray;">- Definetly A Real Person, CEO of Games</p>
+    <br>
+    <p style="color:#0f0;font-size:16px;"><i>"I don't know who these people are but they keep DMing me on Twitter"</i></p>
+    <p style="color:gray;">- Some Roblox YouTuber (anonomus)</p>
+    <br>
+    <p style="color:#0f0;font-size:16px;"><i>"This website gave my computer a seizure. 10/10 would visit again."</i></p>
+    <p style="color:gray;">- ur mom lol</p>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+    <p>&#169; 2025 BudjetGrowth Marketting. All rights reseved (not realy).</p>
+    <p style="margin-top:5px;">made with &#10084;&#65039; and microsoft frontpage at 3am</p>
+    <div class="visitor-counter" id="counter">VISITORS: <span id="vc">000000</span></div>
+    <br>
+    <p style="color:#666;font-size:10px;">best viewed in Internet Exploror 6 at 800x600 resolushun</p>
+    <p style="color:#444;font-size:10px;margin-top:5px;">
+        <a href="index.html" style="color:#00c853;">&#128072; go to the REAL website (its way better i promis)</a>
+    </p>
+    <br>
+    <marquee scrollamount="3" style="color:#333;font-size:10px;">if u read this far ur a legend. go outside. touch grass. tell ur mom u love her.</marquee>
+</div>
+
+<button class="scroll-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">&#128070; UP</button>
+
+<script>
+// FALLING EMOJIS
+var emojis = ['\u{1F480}','\u{1F3AE}','\u{1F680}','\u2B50','\u{1F525}','\u{1F984}','\u{1F4AF}','\u{1F4A3}','\u{1F31F}','\u{1F92F}','\u{1F630}','\u2603','\u{1F389}','\u{1F64C}'];
+var emojiContainer = document.getElementById('emoji-container');
+function spawnEmoji() {
+    var el = document.createElement('div');
+    el.className = 'falling-emoji';
+    el.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    el.style.left = Math.random() * 100 + 'vw';
+    el.style.fontSize = (20 + Math.random() * 30) + 'px';
+    el.style.animationDuration = (3 + Math.random() * 5) + 's';
+    emojiContainer.appendChild(el);
+    setTimeout(function() { el.remove(); }, 8000);
+}
+setInterval(spawnEmoji, 400);
+
+// MOUSE SPARKLES + TOOLTIP
+document.addEventListener('mousemove', function(e) {
+    var tip = document.getElementById('tooltip');
+    tip.style.left = (e.clientX + 15) + 'px';
+    tip.style.top = (e.clientY + 15) + 'px';
+    if (Math.random() > 0.6) {
+        var sp = document.createElement('div');
+        sp.className = 'sparkle';
+        sp.style.left = e.clientX + 'px';
+        sp.style.top = e.clientY + 'px';
+        var colors = ['#ff0','#0ff','#f0f','#0f0','#f00','#fff'];
+        sp.style.background = colors[Math.floor(Math.random() * colors.length)];
+        sp.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
+        var sz = (5 + Math.random() * 10) + 'px';
+        sp.style.width = sz; sp.style.height = sz;
+        document.body.appendChild(sp);
+        setTimeout(function() { sp.remove(); }, 600);
+    }
+});
+
+// TOOLTIP MESSAGES
+var tooltipMsgs = ['ur on my website!! :D','click something pls','hire us!! we need money','stop moving ur mouse so fast',
+    'wow u found this area','this is totally profesional','i made this at 3am','why are u still reading this',
+    'go look at our games','r u a bot? blink twice','having fun? me too','this tooltip follows u everywhere lol'];
+setInterval(function() {
+    document.getElementById('tooltip').textContent = tooltipMsgs[Math.floor(Math.random() * tooltipMsgs.length)];
+}, 2500);
+
+// FAKE VISITOR COUNTER
+var vc = document.getElementById('vc');
+var fakeCount = 48261 + Math.floor(Math.random() * 1000);
+vc.textContent = String(fakeCount).padStart(6, '0');
+setInterval(function() { fakeCount += Math.floor(Math.random() * 3); vc.textContent = String(fakeCount).padStart(6, '0'); }, 3000);
+
+// GUESTBOOK
+function submitGuestbook() {
+    var name = document.getElementById('gb-name').value || 'Anonymous Gamer';
+    var responses = [
+        'thank u ' + name + '!! ur mesage has been sent to the void \u2728',
+        'wow ' + name + ' thats so nice!! *crys in marketing*',
+        'ok ' + name + ' we got ur mesage. now hire us pls.',
+        'TRANSMISION RECIEVED. thank u ' + name + '. the roblox gods are pleased.',
+        name + ' ur mesage has been forwarded to our CEO (hes 14 btw)',
+        'ERROR 404: ' + name + "'s mesage was too powerful for our servers"
+    ];
+    document.getElementById('gb-result').textContent = responses[Math.floor(Math.random() * responses.length)];
+    document.getElementById('gb-name').value = '';
+    document.getElementById('gb-email').value = '';
+    document.getElementById('gb-msg').value = '';
+}
+
+// RANDOM PAGE TITLE
+var titles = ['BudjetGrowth Marketting!!1!','HIRE US PLS','the best website ever made',
+    '\u{1F525} BUDJETGROWTH \u{1F525}','ur still here?','we do marketing i think','roblos marketing agancy','click the button. DO IT.'];
+setInterval(function() { document.title = titles[Math.floor(Math.random() * titles.length)]; }, 4000);
+
+// KONAMI CODE
+var konamiCode = [38,38,40,40,37,39,37,39,66,65], konamiIndex = 0;
+document.addEventListener('keydown', function(e) {
+    if (e.keyCode === konamiCode[konamiIndex]) {
+        konamiIndex++;
+        if (konamiIndex === konamiCode.length) {
+            document.body.style.transform = 'rotate(180deg)';
+            document.body.style.transition = 'transform 2s';
+            alert('\u{1F389} KONAMI CODE ACTIVATED!!\n\nthe website is now upside down. ur welcome.');
+            konamiIndex = 0;
+        }
+    } else { konamiIndex = 0; }
+});
+
+// RIGHT CLICK TROLL
+document.addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+    alert('\u{1F6AB} NO RIGHT CLICKING!!!\n\nthis is proteted content!!\n(jk theres nothing to steal lol)');
+});
+</script>
+
+</body>
+</html>
