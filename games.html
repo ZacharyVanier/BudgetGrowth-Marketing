@@ -584,9 +584,9 @@
     <!-- FILTER + GAMES -->
     <section class="games-section">
         <div class="filter-tabs" id="filterTabs">
-            <button class="filter-tab active" data-filter="all">All<span class="filter-count">7</span></button>
+            <button class="filter-tab active" data-filter="all">All<span class="filter-count">11</span></button>
             <button class="filter-tab" data-filter="live">Live<span class="filter-count">4</span></button>
-            <button class="filter-tab" data-filter="unreleased">Unreleased<span class="filter-count">3</span></button>
+            <button class="filter-tab" data-filter="unreleased">Unreleased<span class="filter-count">7</span></button>
         </div>
 
         <div class="games-grid" id="gamesGrid">
@@ -662,6 +662,46 @@
                 <div class="game-card-info">
                     <h3>Shonen Clash</h3>
                     <p>Anime combat experience</p>
+                </div>
+            </div>
+
+            <div class="game-card" data-status="unreleased">
+                <div class="card-spotlight"></div>
+                <span class="badge-unreleased">Unreleased</span>
+                <div class="game-card-img"><img src="anime-genesis.png" alt="Anime Genesis" loading="lazy"></div>
+                <div class="game-card-info">
+                    <h3>Anime Genesis</h3>
+                    <p>Anime adventure experience</p>
+                </div>
+            </div>
+
+            <div class="game-card" data-status="unreleased">
+                <div class="card-spotlight"></div>
+                <span class="badge-unreleased">Unreleased</span>
+                <div class="game-card-img"><img src="anime-story.png" alt="Anime Story" loading="lazy"></div>
+                <div class="game-card-info">
+                    <h3>Anime Story</h3>
+                    <p>Anime narrative experience</p>
+                </div>
+            </div>
+
+            <div class="game-card" data-status="unreleased">
+                <div class="card-spotlight"></div>
+                <span class="badge-unreleased">Unreleased</span>
+                <div class="game-card-img"><img src="ragnorok-ascension.png" alt="Ragnorok Ascension" loading="lazy"></div>
+                <div class="game-card-info">
+                    <h3>Ragnorok Ascension</h3>
+                    <p>Norse mythology experience</p>
+                </div>
+            </div>
+
+            <div class="game-card" data-status="unreleased">
+                <div class="card-spotlight"></div>
+                <span class="badge-unreleased">Unreleased</span>
+                <div class="game-card-img"><img src="sorcerer-tycoon.jpg" alt="Sorcerer Tycoon" loading="lazy"></div>
+                <div class="game-card-info">
+                    <h3>Sorcerer Tycoon</h3>
+                    <p>Magic tycoon experience</p>
                 </div>
             </div>
 
@@ -845,7 +885,7 @@
         // ========== GAME COUNT COUNTER ==========
         setTimeout(function() {
             var el = document.getElementById('gameCountNum');
-            var target = 7;
+            var target = 11;
             var current = 0;
             var interval = setInterval(function() {
                 current++;
