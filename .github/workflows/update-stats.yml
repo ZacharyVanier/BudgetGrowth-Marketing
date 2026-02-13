@@ -1,0 +1,28 @@
+name: Update Roblox Game Stats
+
+on:
+  schedule:
+    - cron: '*/15 * * * *'  # Every 15 minutes
+  workflow_dispatch: # Manual trigger
+
+permissions:
+  contents: write
+
+jobs:
+  update-stats:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch Roblox game data
+        run: |
+          curl -s "https://games.roblox.com/v1/games?universeIds=7652830984,3012965062,8736631614,8032676626" \
+            -H "Accept: application/json" \
+            -o data.json
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data.json
+          git diff --cached --quiet || (git commit -m "Update game stats [auto]" && git push)
