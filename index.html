@@ -1245,9 +1245,9 @@
         </div>
     </section>
 
-    <!-- STATS -->
+    <!-- STATS (loaded from admin API, fallback to defaults) -->
     <section class="stats">
-        <div class="stats-grid">
+        <div class="stats-grid" id="statsGrid">
             <div class="stat-item reveal reveal-up">
                 <div class="stat-number" data-target="750" data-suffix="M+">0</div>
                 <div class="stat-label">Total Visits</div>
@@ -1650,6 +1650,26 @@
             }, { threshold: 0.3 });
             statNumbers.forEach(function(el) { counterObserver.observe(el); });
         }
+
+        // Load stats from admin API (update data attributes before counter starts)
+        fetch('https://budgetgrowth.vznzach.com/api/stats')
+            .then(function(r) { return r.json(); })
+            .then(function(json) {
+                var statNumbers = document.querySelectorAll('.stat-number');
+                var statLabels = document.querySelectorAll('.stat-label');
+                if (json.stats && json.stats.length >= 3) {
+                    json.stats.forEach(function(stat, i) {
+                        if (statNumbers[i]) {
+                            statNumbers[i].dataset.target = stat.value;
+                            statNumbers[i].dataset.suffix = stat.suffix;
+                        }
+                        if (statLabels[i]) {
+                            statLabels[i].textContent = stat.label;
+                        }
+                    });
+                }
+            })
+            .catch(function(err) { console.log('Admin stats fetch failed, using defaults:', err); });
 
         // Delay counter init until preloader is done
         setTimeout(initCounters, 1800);

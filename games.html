@@ -581,130 +581,16 @@
         </div>
     </section>
 
-    <!-- FILTER + GAMES -->
+    <!-- FILTER + GAMES (loaded from admin API) -->
     <section class="games-section">
         <div class="filter-tabs" id="filterTabs">
-            <button class="filter-tab active" data-filter="all">All<span class="filter-count">11</span></button>
-            <button class="filter-tab" data-filter="live">Live<span class="filter-count">4</span></button>
-            <button class="filter-tab" data-filter="unreleased">Unreleased<span class="filter-count">7</span></button>
+            <button class="filter-tab active" data-filter="all">All<span class="filter-count" id="countAll">0</span></button>
+            <button class="filter-tab" data-filter="live">Live<span class="filter-count" id="countLive">0</span></button>
+            <button class="filter-tab" data-filter="unreleased">Unreleased<span class="filter-count" id="countUnreleased">0</span></button>
         </div>
 
         <div class="games-grid" id="gamesGrid">
-
-            <a href="https://www.roblox.com/games/7772810845/The-Presentation-Experience" target="_blank" rel="noopener" class="game-card" data-universe="3012965062" data-status="live">
-                <div class="card-spotlight"></div>
-                <span class="badge-live">Live</span>
-                <div class="game-card-img"><img src="the-presentation-experience.png" alt="The Presentation Experience" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>The Presentation Experience</h3>
-                    <p>Comedy classroom experience</p>
-                    <div class="game-stats" id="stats-3012965062"></div>
-                </div>
-            </a>
-
-            <a href="https://www.roblox.com/games/76806550943352/Anime-Paradox" target="_blank" rel="noopener" class="game-card" data-universe="7652830984" data-status="live">
-                <div class="card-spotlight"></div>
-                <span class="badge-live">Live</span>
-                <div class="game-card-img"><img src="anime-paradox.png" alt="Anime Paradox" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Anime Paradox</h3>
-                    <p>Anime action experience</p>
-                    <div class="game-stats" id="stats-7652830984"></div>
-                </div>
-            </a>
-
-            <a href="https://www.roblox.com/games/109008444518106/Brew-a-Potion" target="_blank" rel="noopener" class="game-card" data-universe="8032676626" data-status="live">
-                <div class="card-spotlight"></div>
-                <span class="badge-live">Live</span>
-                <div class="game-card-img"><img src="brew-a-potion.png" alt="Brew A Potion" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Brew A Potion</h3>
-                    <p>Potion crafting experience</p>
-                    <div class="game-stats" id="stats-8032676626"></div>
-                </div>
-            </a>
-
-            <a href="https://www.roblox.com/games/136063393518705/Anime-Destroyers" target="_blank" rel="noopener" class="game-card" data-universe="8736631614" data-status="live">
-                <div class="card-spotlight"></div>
-                <span class="badge-live">Live</span>
-                <div class="game-card-img"><img src="anime-destroyers.png" alt="Anime Destroyers" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Anime Destroyers</h3>
-                    <p>Anime battle experience</p>
-                    <div class="game-stats" id="stats-8736631614"></div>
-                </div>
-            </a>
-
-            <div class="game-card" data-status="unreleased">
-                <div class="card-spotlight"></div>
-                <span class="badge-unreleased">Unreleased</span>
-                <div class="game-card-img"><img src="anime-conquest.webp" alt="Anime Conquest" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Anime Conquest</h3>
-                    <p>Anime fighting experience</p>
-                </div>
-            </div>
-
-            <div class="game-card" data-status="unreleased">
-                <div class="card-spotlight"></div>
-                <span class="badge-unreleased">Unreleased</span>
-                <div class="game-card-img"><img src="sumo-clash.png" alt="Sumo Clash" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Sumo Clash</h3>
-                    <p>Competitive sumo experience</p>
-                </div>
-            </div>
-
-            <div class="game-card" data-status="unreleased">
-                <div class="card-spotlight"></div>
-                <span class="badge-unreleased">Unreleased</span>
-                <div class="game-card-img"><img src="shonen-clash.png" alt="Shonen Clash" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Shonen Clash</h3>
-                    <p>Anime combat experience</p>
-                </div>
-            </div>
-
-            <div class="game-card" data-status="unreleased">
-                <div class="card-spotlight"></div>
-                <span class="badge-unreleased">Unreleased</span>
-                <div class="game-card-img"><img src="anime-genesis.png" alt="Anime Genesis" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Anime Genesis</h3>
-                    <p>Anime adventure experience</p>
-                </div>
-            </div>
-
-            <div class="game-card" data-status="unreleased">
-                <div class="card-spotlight"></div>
-                <span class="badge-unreleased">Unreleased</span>
-                <div class="game-card-img"><img src="anime-story.png" alt="Anime Story" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Anime Story</h3>
-                    <p>Anime narrative experience</p>
-                </div>
-            </div>
-
-            <div class="game-card" data-status="unreleased">
-                <div class="card-spotlight"></div>
-                <span class="badge-unreleased">Unreleased</span>
-                <div class="game-card-img"><img src="ragnorok-ascension.png" alt="Ragnorok Ascension" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Ragnorok Ascension</h3>
-                    <p>Norse mythology experience</p>
-                </div>
-            </div>
-
-            <div class="game-card" data-status="unreleased">
-                <div class="card-spotlight"></div>
-                <span class="badge-unreleased">Unreleased</span>
-                <div class="game-card-img"><img src="sorcerer-tycoon.jpg" alt="Sorcerer Tycoon" loading="lazy"></div>
-                <div class="game-card-info">
-                    <h3>Sorcerer Tycoon</h3>
-                    <p>Magic tycoon experience</p>
-                </div>
-            </div>
-
+            <!-- Games loaded dynamically from API -->
         </div>
     </section>
 
@@ -746,11 +632,13 @@
     </footer>
 
     <script>
+        var API_BASE = 'https://budgetgrowth.vznzach.com';
+        var gamesData = [];
+
         // ========== PRELOADER ==========
         window.addEventListener('load', function() {
             setTimeout(function() {
                 document.getElementById('preloader').classList.add('done');
-                // Trigger staggered card entrance after preloader
                 setTimeout(revealCards, 200);
             }, 1600);
         });
@@ -880,19 +768,85 @@
         }
         animateHeaderParticles();
 
-        // Title is static in HTML now
+        // ========== BUILD GAME CARD HTML ==========
+        function buildGameCard(game) {
+            var isLive = game.status === 'live';
+            var tag = isLive ? 'a' : 'div';
+            var hrefAttr = isLive && game.roblox_url ? ' href="' + game.roblox_url + '" target="_blank" rel="noopener"' : '';
+            var universeAttr = game.universe_id ? ' data-universe="' + game.universe_id + '"' : '';
+            var imgSrc = API_BASE + '/uploads/' + game.image;
+
+            var badge = isLive
+                ? '<span class="badge-live">Live</span>'
+                : '<span class="badge-unreleased">Unreleased</span>';
+
+            var statsDiv = game.universe_id
+                ? '<div class="game-stats" id="stats-' + game.universe_id + '"></div>'
+                : '';
+
+            return '<' + tag + hrefAttr + ' class="game-card" data-status="' + game.status + '"' + universeAttr + '>' +
+                '<div class="card-spotlight"></div>' +
+                badge +
+                '<div class="game-card-img"><img src="' + imgSrc + '" alt="' + game.name + '" loading="lazy"></div>' +
+                '<div class="game-card-info">' +
+                    '<h3>' + game.name + '</h3>' +
+                    '<p>' + game.description + '</p>' +
+                    statsDiv +
+                '</div>' +
+            '</' + tag + '>';
+        }
+
+        // ========== LOAD GAMES FROM API ==========
+        function loadGames() {
+            fetch(API_BASE + '/api/games')
+                .then(function(r) { return r.json(); })
+                .then(function(json) {
+                    gamesData = json.games || [];
+                    var grid = document.getElementById('gamesGrid');
+                    var html = '';
+                    gamesData.forEach(function(game) {
+                        html += buildGameCard(game);
+                    });
+                    grid.innerHTML = html;
+
+                    // Update counts
+                    var total = gamesData.length;
+                    var liveCount = gamesData.filter(function(g) { return g.status === 'live'; }).length;
+                    var unreleasedCount = total - liveCount;
+
+                    document.getElementById('countAll').textContent = total;
+                    document.getElementById('countLive').textContent = liveCount;
+                    document.getElementById('countUnreleased').textContent = unreleasedCount;
+
+                    // Animate game count
+                    animateGameCount(total);
+
+                    // Init card effects
+                    initCardEffects();
+
+                    // Init filters
+                    initFilters();
+
+                    // Load live Roblox stats
+                    loadRobloxStats();
+                })
+                .catch(function(err) {
+                    console.error('Failed to load games:', err);
+                    document.getElementById('gamesGrid').innerHTML =
+                        '<div style="grid-column:1/-1;text-align:center;padding:4rem;color:#666;">Failed to load games. Please try refreshing.</div>';
+                });
+        }
 
         // ========== GAME COUNT COUNTER ==========
-        setTimeout(function() {
+        function animateGameCount(target) {
             var el = document.getElementById('gameCountNum');
-            var target = 11;
             var current = 0;
             var interval = setInterval(function() {
                 current++;
                 el.textContent = current;
                 if (current >= target) clearInterval(interval);
             }, 120);
-        }, 2200);
+        }
 
         // ========== STAGGERED CARD REVEAL ==========
         function revealCards() {
@@ -905,89 +859,81 @@
         }
 
         // ========== FILTER TABS ==========
-        var filterTabs = document.querySelectorAll('.filter-tab');
-        var allCards = document.querySelectorAll('.game-card');
+        function initFilters() {
+            var filterTabs = document.querySelectorAll('.filter-tab');
+            filterTabs.forEach(function(tab) {
+                tab.addEventListener('click', function() {
+                    var filter = this.dataset.filter;
+                    filterTabs.forEach(function(t) { t.classList.remove('active'); });
+                    this.classList.add('active');
 
-        filterTabs.forEach(function(tab) {
-            tab.addEventListener('click', function() {
-                var filter = this.dataset.filter;
-                filterTabs.forEach(function(t) { t.classList.remove('active'); });
-                this.classList.add('active');
-
-                // Fade all out first
-                allCards.forEach(function(card) {
-                    card.classList.remove('card-visible');
-                    card.style.transition = 'border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease';
-                });
-
-                setTimeout(function() {
-                    var visibleIndex = 0;
+                    var allCards = document.querySelectorAll('.game-card');
                     allCards.forEach(function(card) {
-                        var status = card.dataset.status;
-                        if (filter === 'all' || status === filter) {
-                            card.classList.remove('card-hidden');
-                            card.style.position = '';
-                            card.style.visibility = '';
-                            // Stagger in
-                            (function(idx) {
-                                setTimeout(function() {
-                                    card.style.transition = 'border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.5s ease';
-                                    card.classList.add('card-visible');
-                                }, idx * 100);
-                            })(visibleIndex);
-                            visibleIndex++;
-                        } else {
-                            card.classList.add('card-hidden');
-                        }
+                        card.classList.remove('card-visible');
+                        card.style.transition = 'border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease';
                     });
-                }, 300);
+
+                    setTimeout(function() {
+                        var visibleIndex = 0;
+                        allCards.forEach(function(card) {
+                            var status = card.dataset.status;
+                            if (filter === 'all' || status === filter) {
+                                card.classList.remove('card-hidden');
+                                card.style.position = '';
+                                card.style.visibility = '';
+                                (function(idx) {
+                                    setTimeout(function() {
+                                        card.style.transition = 'border-color 0.4s ease, box-shadow 0.4s ease, opacity 0.5s ease';
+                                        card.classList.add('card-visible');
+                                    }, idx * 100);
+                                })(visibleIndex);
+                                visibleIndex++;
+                            } else {
+                                card.classList.add('card-hidden');
+                            }
+                        });
+                    }, 300);
+                });
             });
-        });
-
-        // ========== ALL CARD EFFECTS (tilt + spotlight + ripple) ==========
-        var allGameCards = document.querySelectorAll('.game-card');
-        for (var ci = 0; ci < allGameCards.length; ci++) {
-            (function(card) {
-                var spotlight = card.querySelector('.card-spotlight');
-
-                card.addEventListener('mousemove', function(e) {
-                    if (card.classList.contains('card-hidden')) return;
-                    var rect = card.getBoundingClientRect();
-                    var x = e.clientX - rect.left;
-                    var y = e.clientY - rect.top;
-                    var centerX = rect.width / 2;
-                    var centerY = rect.height / 2;
-                    var rotateX = ((y - centerY) / centerY) * -5;
-                    var rotateY = ((x - centerX) / centerX) * 5;
-                    card.style.transform = 'translateY(-8px) scale(1.02) perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
-                    if (spotlight) {
-                        spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.1), transparent 40%)';
-                    }
-                });
-
-                card.addEventListener('mouseleave', function() {
-                    card.style.transform = '';
-                });
-
-                card.addEventListener('click', function(e) {
-                    var rect = card.getBoundingClientRect();
-                    var ripple = document.createElement('div');
-                    ripple.className = 'card-ripple animating';
-                    ripple.style.left = (e.clientX - rect.left) + 'px';
-                ripple.style.top = (e.clientY - rect.top) + 'px';
-                ripple.style.width = '100px';
-                ripple.style.height = '100px';
-                ripple.style.marginLeft = '-50px';
-                ripple.style.marginTop = '-50px';
-                card.appendChild(ripple);
-                setTimeout(function() { if (ripple.parentNode) ripple.parentNode.removeChild(ripple); }, 600);
-                });
-            })(allGameCards[ci]);
         }
 
-
-
-
+        // ========== CARD EFFECTS (tilt + spotlight + ripple) ==========
+        function initCardEffects() {
+            var allGameCards = document.querySelectorAll('.game-card');
+            for (var ci = 0; ci < allGameCards.length; ci++) {
+                (function(card) {
+                    var spotlight = card.querySelector('.card-spotlight');
+                    card.addEventListener('mousemove', function(e) {
+                        if (card.classList.contains('card-hidden')) return;
+                        var rect = card.getBoundingClientRect();
+                        var x = e.clientX - rect.left;
+                        var y = e.clientY - rect.top;
+                        var centerX = rect.width / 2;
+                        var centerY = rect.height / 2;
+                        var rotateX = ((y - centerY) / centerY) * -5;
+                        var rotateY = ((x - centerX) / centerX) * 5;
+                        card.style.transform = 'translateY(-8px) scale(1.02) perspective(1000px) rotateX(' + rotateX + 'deg) rotateY(' + rotateY + 'deg)';
+                        if (spotlight) {
+                            spotlight.style.background = 'radial-gradient(600px circle at ' + x + 'px ' + y + 'px, rgba(0, 200, 83, 0.1), transparent 40%)';
+                        }
+                    });
+                    card.addEventListener('mouseleave', function() { card.style.transform = ''; });
+                    card.addEventListener('click', function(e) {
+                        var rect = card.getBoundingClientRect();
+                        var ripple = document.createElement('div');
+                        ripple.className = 'card-ripple animating';
+                        ripple.style.left = (e.clientX - rect.left) + 'px';
+                        ripple.style.top = (e.clientY - rect.top) + 'px';
+                        ripple.style.width = '100px';
+                        ripple.style.height = '100px';
+                        ripple.style.marginLeft = '-50px';
+                        ripple.style.marginTop = '-50px';
+                        card.appendChild(ripple);
+                        setTimeout(function() { if (ripple.parentNode) ripple.parentNode.removeChild(ripple); }, 600);
+                    });
+                })(allGameCards[ci]);
+            }
+        }
 
         // ========== CURSOR PARTICLE TRAIL ==========
         var trailParticles = [], maxTrail = 20, trailThrottle = 0;
@@ -1035,7 +981,7 @@
             return num.toString();
         }
 
-        function renderStats(gameData) {
+        function renderRobloxStats(gameData) {
             var statsEl = document.getElementById('stats-' + gameData.id);
             if (!statsEl) return;
             statsEl.innerHTML =
@@ -1044,10 +990,15 @@
                 '<span class="game-stat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>' + formatNumber(gameData.favoritedCount) + '</span>';
         }
 
-        fetch('data.json')
-            .then(function(r) { return r.json(); })
-            .then(function(json) { json.data.forEach(function(game) { renderStats(game); }); })
-            .catch(function(err) { console.log('Stats fetch failed:', err); });
+        function loadRobloxStats() {
+            fetch('data.json')
+                .then(function(r) { return r.json(); })
+                .then(function(json) { json.data.forEach(function(game) { renderRobloxStats(game); }); })
+                .catch(function(err) { console.log('Roblox stats fetch failed:', err); });
+        }
+
+        // ========== INIT ==========
+        loadGames();
     </script>
 
 </body>
