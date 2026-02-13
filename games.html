@@ -771,8 +771,9 @@
         // ========== BUILD GAME CARD HTML ==========
         function buildGameCard(game) {
             var isLive = game.status === 'live';
-            var tag = isLive ? 'a' : 'div';
-            var hrefAttr = isLive && game.roblox_url ? ' href="' + game.roblox_url + '" target="_blank" rel="noopener"' : '';
+            var linkUrl = isLive ? game.roblox_url : game.discord_url;
+            var tag = linkUrl ? 'a' : 'div';
+            var hrefAttr = linkUrl ? ' href="' + linkUrl + '" target="_blank" rel="noopener"' : '';
             var universeAttr = game.universe_id ? ' data-universe="' + game.universe_id + '"' : '';
             var imgSrc = API_BASE + '/uploads/' + game.image;
 
